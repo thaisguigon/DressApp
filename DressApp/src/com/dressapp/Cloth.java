@@ -150,11 +150,33 @@ public class Cloth {
 	}
 	
 	/**
+	 * Actionne l'appareil photo.
+	 * 
+	 * @since v0.1 2014-02-25
+	 */
+	public void takePicture ()
+	{
+		
+	}
+	
+	/* ----- DATA BASE ----- */
+	
+	/**
+	 * Edite le vêtement dans la base de données.
+	 * 
+	 * @since v0.1 2014-02-25
+	 */
+	public void editInDataBase ()
+	{
+		
+	}
+	
+	/**
 	 * Sauvegarde le vêtement dans la base de données.
 	 * 
 	 * @since v0.1 2014-01-28
 	 */
-	public void save ()
+	public void saveInDataBase ()
 	{
 		
 	}
@@ -164,7 +186,7 @@ public class Cloth {
 	 * 
 	 * @since v0.1 2014-02-25
 	 */
-	public void delete ()
+	public void deleteInDataBase ()
 	{
 		
 	}
