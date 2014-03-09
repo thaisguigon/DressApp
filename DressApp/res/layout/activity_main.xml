@@ -21,14 +21,6 @@
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="56dp"
-        android:text="Appareil Photo" />
-
-    <SurfaceView
-        android:id="@+id/surfaceViewCamera"
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/buttonTakePicture"
-        android:layout_marginTop="34dp" />
+        android:text="@string/button_take_a_picture" />
 
 </RelativeLayout>

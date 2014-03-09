@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <SurfaceView
+        android:id="@+id/surfaceViewCamera"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="center" />
+
+    <Button
+        android:id="@+id/button1"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content" 
+        android:layout_height="wrap_content" 
+        android:layout_marginBottom="20dip"
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="@string/button_take_a_picture" />
+
+</FrameLayout>

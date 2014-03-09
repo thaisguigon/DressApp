@@ -6,8 +6,8 @@ import android.app.Activity;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.SurfaceHolder;
-import android.view.SurfaceHolder.Callback;
 import android.view.SurfaceView;
 import android.view.Window;
 import android.view.WindowManager;
@@ -16,7 +16,7 @@ import android.view.WindowManager;
  * @author Thaïs
  *
  */
-public class CameraActivity extends Activity implements Callback {
+public class FormationCameraActivity extends Activity implements SurfaceHolder.Callback {
 	
 	private Camera camera;
 	private SurfaceView surfaceCamera;
@@ -39,7 +39,7 @@ public class CameraActivity extends Activity implements Callback {
 
 	    isPreview = false;
 	    
-	    setContentView (R.layout.activity_main);
+	    setContentView (R.layout.camera_display);
 
 	    // Récupération de la surface.
 	    surfaceCamera = (SurfaceView) findViewById (R.id.surfaceViewCamera);
@@ -75,6 +75,11 @@ public class CameraActivity extends Activity implements Callback {
 	@Override
 	public void surfaceChanged (SurfaceHolder holder, int format, int width, int height)
 	{
+		if (camera == null)
+		{
+			return;
+		}
+		
 		// On arrête la prévisualisation si elle était en cours.
 	    if (isPreview)
 	    {
@@ -86,12 +91,17 @@ public class CameraActivity extends Activity implements Callback {
 	    
 	    // Récupération des paramètres actuels
 	    Camera.Parameters parameters = camera.getParameters ();
+	    
+	    if (parameters != null)
+	    {
+	    	// Mise à jour de la taille
+		    parameters.setPreviewSize (width, height);
+		    
+		    Log.w("1", "size updated");
 
-	    // Mise à jour de la taille
-	    parameters.setPreviewSize (width, height);
-
-	    // Mise à jour des paramètres
-	    camera.setParameters (parameters);
+		    // Mise à jour des paramètres
+		    camera.setParameters (parameters);
+	    }
 
 	    try
 	    {
