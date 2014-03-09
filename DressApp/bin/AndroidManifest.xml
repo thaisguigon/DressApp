@@ -25,8 +25,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".FormationCameraActivity"
+            android:name=".CameraPreviewActivity"
             android:label="@string/title_camera_display">
+        </activity>
+        <activity
+            android:name=".ClothFormActivity"
+            android:label="@string/title_cloth_form">
         </activity>
     </application>
 

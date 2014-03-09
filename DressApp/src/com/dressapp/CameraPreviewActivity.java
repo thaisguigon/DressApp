@@ -3,24 +3,57 @@ package com.dressapp;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.hardware.Camera;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 /**
  * @author Thaïs
  *
  */
-public class FormationCameraActivity extends Activity implements SurfaceHolder.Callback {
+public class CameraPreviewActivity extends Activity implements SurfaceHolder.Callback {
 	
 	private Camera camera;
 	private SurfaceView surfaceCamera;
+	private Button buttonTakePicture;
 	private Boolean isPreview;
+	private View.OnClickListener takePictureListener = new View.OnClickListener ()
+    {
+
+    	// Callback pour prise de photo.
+	    Camera.PictureCallback pictureCallback = new Camera.PictureCallback ()
+	    {
+
+	    	public void onPictureTaken(byte[] data, Camera camera)
+	    	{
+				if (data != null)
+				{					
+				    // On récupère les données.			        
+			        Intent intent = new Intent (CameraPreviewActivity.this, ClothFormActivity.class);
+			        intent.putExtra("bitmapPicture", data);
+					startActivity (intent);
+				}
+	    	}
+	    	
+	    };
+	    
+        public void onClick(View v)
+        {
+            // Prendre une photo
+            if (camera != null)
+            {
+            	// Dès que l'image est prête, on appelle le callback.
+            	camera.takePicture (null, null, null, pictureCallback);
+            }
+        }
+    };
 	
 	/**
 	 * Création de l'activité
@@ -44,8 +77,16 @@ public class FormationCameraActivity extends Activity implements SurfaceHolder.C
 	    // Récupération de la surface.
 	    surfaceCamera = (SurfaceView) findViewById (R.id.surfaceViewCamera);
 	    
+	    // Récupération du bouton "take a picture"
+	    buttonTakePicture = (Button) findViewById (R.id.buttonTakeAPicture);
+	    
 	    // Initialisation de la camera.
 	    surfaceCamera.getHolder().addCallback (this);
+        
+	    // Ajout du listener sur la surface et le bouton
+        surfaceCamera.setOnClickListener(takePictureListener);
+        buttonTakePicture.setOnClickListener(takePictureListener);
+        
 	}
 
 	@Override
@@ -96,8 +137,6 @@ public class FormationCameraActivity extends Activity implements SurfaceHolder.C
 	    {
 	    	// Mise à jour de la taille
 		    parameters.setPreviewSize (width, height);
-		    
-		    Log.w("1", "size updated");
 
 		    // Mise à jour des paramètres
 		    camera.setParameters (parameters);

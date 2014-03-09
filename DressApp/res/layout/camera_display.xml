@@ -11,12 +11,12 @@
         android:scaleType="center" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/buttonTakeAPicture"
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content" 
-        android:layout_height="wrap_content" 
-        android:layout_marginBottom="20dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="20dip"
         android:text="@string/button_take_a_picture" />
 
 </FrameLayout>

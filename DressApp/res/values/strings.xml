@@ -5,6 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_camera_display">CameraDisplay</string>
+    <string name="title_cloth_form">ClothForm</string>
     <string name="button_take_a_picture">Take a picture !</string>
+    <string name="contentDescription_taken_picture">Taken picture from camera</string>
 
 </resources>
