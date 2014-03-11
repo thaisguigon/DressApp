@@ -15,136 +15,179 @@
         android:layout_weight="0.71"
         android:contentDescription="@string/contentDescription_taken_picture" />
 
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/label_name" />
+
+            <EditText
+                android:id="@+id/field_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/hint_name" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/label_type" />
+
+            <Spinner
+                android:id="@+id/spinner_type"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/spinner_type" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_occasion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/label_occasion" />
+
+            <Spinner
+                android:id="@+id/spinner_occasion"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/spinner_occasion" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/label_colors" />
+
+            <Spinner
+                android:id="@+id/spinner_colors1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/spinner_colors" />
+
+            <Spinner
+                android:id="@+id/spinner_colors2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/spinner_colors" />
+
+        </TableRow>
+        
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/label_season"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="@string/label_season" />
+
+            <Spinner
+                android:id="@+id/spinner_seasons"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:entries="@array/spinner_seasons" />
+
+        </TableRow>
+    </TableLayout>
+
     <LinearLayout
+        style="?android:attr/buttonBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="10dp" >
+        android:baselineAligned="true"
+        android:orientation="horizontal" >
 
-        <TextView
-            android:id="@+id/label_name"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="@string/label_name"
-            android:layout_margin="5dp" />
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+            
+            <Button
+	            android:id="@+id/button_cloth_form_submit"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/button_cloth_form_submit"
+	            android:visibility="visible" />
+            
+            <Button
+	            android:id="@+id/button_cloth_form_edit"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:text="@string/button_cloth_form_edit"
+	            android:visibility="gone" />
+            
+        </FrameLayout>
 
-        <EditText
-            android:id="@+id/field_name"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="@string/hint_name"
-            android:ems="10" >
-
-            <requestFocus />
-        </EditText>
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+            
+            <Button
+	            android:id="@+id/button_cloth_form_cancel"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center_vertical|center_horizontal|center"
+	            android:text="@string/button_cloth_form_cancel"
+	            android:visibility="visible" />
+            
+            <Button
+	            android:id="@+id/button_cloth_form_delete"
+	            style="?android:attr/buttonBarButtonStyle"
+	            android:layout_width="match_parent"
+	            android:layout_height="wrap_content"
+	            android:gravity="center_vertical|center_horizontal|center"
+	            android:text="@string/button_cloth_form_delete"
+	            android:visibility="gone" />
+            
+        </FrameLayout>
 
     </LinearLayout>
     
-    <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginLeft="10dp"
-         android:layout_marginBottom="5dp"
-         android:layout_marginRight="10dp" >
-
-        <TextView
-            android:id="@+id/label_type"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="@string/label_type"
-            android:layout_margin="5dp" />
-
-        <Spinner
-            android:id="@+id/spinner_type"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/spinner_type" />
-
-    </LinearLayout>
-    
-	<LinearLayout
-	     android:layout_width="match_parent"
-	     android:layout_height="wrap_content"
-	     android:layout_marginLeft="10dp"
-         android:layout_marginBottom="5dp"
-         android:layout_marginRight="10dp" >
-	
-	    <TextView
-	        android:id="@+id/label_occasion"
-	        android:layout_width="60dp"
-	        android:layout_height="wrap_content"
-	        android:text="@string/label_occasion"
-	        android:layout_margin="5dp" />
-	
-	    <Spinner
-	        android:id="@+id/spinner_occasion"
-	        android:layout_width="0dip"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:entries="@array/spinner_occasion" />
-	
-	</LinearLayout>
-    
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginLeft="10dp"
-         android:layout_marginBottom="5dp"
-         android:layout_marginRight="10dp" >
-        
-         <TextView
-            android:id="@+id/label_color"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="@string/label_colors"
-            android:layout_margin="5dp" />
-
-         <Spinner
-             android:id="@+id/spinner_colors1"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:entries="@array/spinner_colors" />
-
-         <Spinner
-             android:id="@+id/spinner_colors2"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="1"
-             android:entries="@array/spinner_colors" />
-        
-     </LinearLayout>
-     
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:layout_marginLeft="10dp"
-         android:layout_marginBottom="5dp"
-         android:layout_marginRight="10dp" >
-
-        <TextView
-            android:id="@+id/label_season"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:text="@string/label_season"
-            android:layout_margin="5dp" />
-
-        <Spinner
-            android:id="@+id/spinner_seasons"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:entries="@array/spinner_seasons" />
-
-    </LinearLayout>
-
-     <Button
-         android:id="@+id/button1"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:text="@string/button_cloth_form_submit" />
-
 </LinearLayout>

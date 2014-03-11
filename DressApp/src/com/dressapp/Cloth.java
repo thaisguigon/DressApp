@@ -2,7 +2,6 @@ package com.dressapp;
 
 /**
  * @author Thaïs
- * @version Cloth.java, v0.1 2014-01-28
  */
 
 public class Cloth {
@@ -10,15 +9,13 @@ public class Cloth {
 	private int
 		id;
 	private String
+		color1,
+		color2,
 		img,
 		name,
-		size,
-		brand;
-	private float
-		price;
-	private boolean
-		wish = false,
-		fav = false;
+		occasion,
+		season,
+		type;
 	
 	/* ----- CONSTRUCTOR ----- */
 	
@@ -26,28 +23,37 @@ public class Cloth {
 	 * @param id
 	 * @param img
 	 * @param name
-	 * @param size
-	 * @param brand
-	 * @param price
-	 * @param wish
-	 * @param fav
 	 */
-	public Cloth (int id, String img, String name, String size, String brand,
-			float price, boolean wish, boolean fav)
+	public Cloth (int id, String img, String name)
 	{
 		super();
 		this.id = id;
 		this.img = img;
 		this.name = name;
-		this.size = size;
-		this.brand = brand;
-		this.price = price;
-		this.wish = wish;
-		this.fav = fav;
 	}
 	
 	/* ----- GETTERS AND SETTERS ----- */
 	
+	public String getColor1 ()
+	{
+		return color1;
+	}
+
+	public void setColor1 (String color1)
+	{
+		this.color1 = color1;
+	}
+	
+	public String getColor2 ()
+	{
+		return color2;
+	}
+
+	public void setColor2 (String color2)
+	{
+		this.color2 = color2;
+	}
+
 	public int getId ()
 	{
 		return id;
@@ -77,55 +83,35 @@ public class Cloth {
 	{
 		this.name = name;
 	}
-
-	public String getSize ()
+	
+	public String getOccasion ()
 	{
-		return size;
+		return occasion;
 	}
 
-	public void setSize (String size)
+	public void setOccasion (String occasion)
 	{
-		this.size = size;
+		this.occasion = occasion;
 	}
 
-	public String getBrand ()
+	public String getSeason ()
 	{
-		return brand;
+		return season;
 	}
 
-	public void setBrand (String brand)
+	public void setSeason (String season)
 	{
-		this.brand = brand;
+		this.season = season;
 	}
 
-	public float getPrice ()
+	public String getType ()
 	{
-		return price;
+		return type;
 	}
 
-	public void setPrice (float price)
+	public void setType (String type)
 	{
-		this.price = price;
-	}
-
-	public boolean isWish ()
-	{
-		return wish;
-	}
-
-	public void setWish (boolean wish)
-	{
-		this.wish = wish;
-	}
-
-	public boolean isFav ()
-	{
-		return fav;
-	}
-
-	public void setFav (boolean fav)
-	{
-		this.fav = fav;
+		this.type = type;
 	}
 	
 	/* ----- METHODS ----- */
@@ -133,38 +119,31 @@ public class Cloth {
 	/**
 	 * Change les informations du vêtement.
 	 * 
-	 * @since v0.1 2014-01-28
 	 * @param img
 	 * @param name
-	 * @param size
-	 * @param brand
-	 * @param price
+	 * @param color1
+	 * @param color2
+	 * @param occasion
+	 * @param season
+	 * @param type
 	 */
-	public void edit (String img, String name, String size, String brand, float price)
+	public void edit (String img, String name, String color1, String color2,
+			String occasion, String season, String type)
 	{
-		this.setImg (img);
+		this.setImg(img);
 		this.setName(name);
-		this.setSize(size);
-		this.setBrand(brand);
-		this.setPrice(price);
-	}
-	
-	/**
-	 * Actionne l'appareil photo.
-	 * 
-	 * @since v0.1 2014-02-25
-	 */
-	public void takePicture ()
-	{
 		
+		this.setColor1(color1);
+		this.setColor2(color2);
+		this.setOccasion(occasion);
+		this.setSeason(season);
+		this.setType(type);
 	}
 	
 	/* ----- DATA BASE ----- */
 	
 	/**
 	 * Edite le vêtement dans la base de données.
-	 * 
-	 * @since v0.1 2014-02-25
 	 */
 	public void editInDataBase ()
 	{
@@ -173,8 +152,6 @@ public class Cloth {
 	
 	/**
 	 * Sauvegarde le vêtement dans la base de données.
-	 * 
-	 * @since v0.1 2014-01-28
 	 */
 	public void saveInDataBase ()
 	{
@@ -183,8 +160,6 @@ public class Cloth {
 	
 	/**
 	 * Supprime le vêtement de la base de données.
-	 * 
-	 * @since v0.1 2014-02-25
 	 */
 	public void deleteInDataBase ()
 	{

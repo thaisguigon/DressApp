@@ -9,7 +9,7 @@ package com.dressapp;
 
 public final class R {
     public static final class array {
-        /**  String arrays for cloth saving form spinners 
+        /**  String arrays for cloth form spinners 
          */
         public static final int spinner_colors=0x7f060000;
         public static final int spinner_occasion=0x7f060002;
@@ -32,23 +32,31 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f090011;
-        public static final int button1=0x7f090010;
+        public static final int action_settings=0x7f090019;
         public static final int buttonTakeAPicture=0x7f090003;
         public static final int buttonTakePicture=0x7f090001;
-        public static final int field_name=0x7f090006;
+        public static final int button_cloth_form_cancel=0x7f090017;
+        public static final int button_cloth_form_delete=0x7f090018;
+        public static final int button_cloth_form_edit=0x7f090016;
+        public static final int button_cloth_form_submit=0x7f090015;
+        public static final int field_name=0x7f090007;
         public static final int imageView_taken_picture=0x7f090004;
-        public static final int label_color=0x7f09000b;
-        public static final int label_name=0x7f090005;
-        public static final int label_occasion=0x7f090009;
-        public static final int label_season=0x7f09000e;
-        public static final int label_type=0x7f090007;
-        public static final int spinner_colors1=0x7f09000c;
-        public static final int spinner_colors2=0x7f09000d;
-        public static final int spinner_occasion=0x7f09000a;
-        public static final int spinner_seasons=0x7f09000f;
-        public static final int spinner_type=0x7f090008;
+        public static final int label_color=0x7f09000f;
+        public static final int label_name=0x7f090006;
+        public static final int label_occasion=0x7f09000c;
+        public static final int label_season=0x7f090013;
+        public static final int label_type=0x7f090009;
+        public static final int spinner_colors1=0x7f090010;
+        public static final int spinner_colors2=0x7f090011;
+        public static final int spinner_occasion=0x7f09000d;
+        public static final int spinner_seasons=0x7f090014;
+        public static final int spinner_type=0x7f09000a;
         public static final int surfaceViewCamera=0x7f090002;
+        public static final int tableRow1=0x7f090005;
+        public static final int tableRow2=0x7f090008;
+        public static final int tableRow3=0x7f09000b;
+        public static final int tableRow4=0x7f09000e;
+        public static final int tableRow5=0x7f090012;
         public static final int textView1=0x7f090000;
     }
     public static final class layout {
@@ -62,6 +70,9 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
+        public static final int button_cloth_form_cancel=0x7f05000f;
+        public static final int button_cloth_form_delete=0x7f050010;
+        public static final int button_cloth_form_edit=0x7f05000e;
         public static final int button_cloth_form_submit=0x7f05000d;
         /**  Taken picture strings 
          */

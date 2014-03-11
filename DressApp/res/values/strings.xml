@@ -23,9 +23,12 @@
     <string name="label_occasion">Occasion</string>
     <string name="label_colors">Colors</string>
     <string name="label_season">Season</string>
-    <string name="button_cloth_form_submit">Save my cloth</string>
+    <string name="button_cloth_form_submit">Save cloth</string>
+    <string name="button_cloth_form_edit">Edit cloth</string>
+    <string name="button_cloth_form_cancel">Cancel</string>
+    <string name="button_cloth_form_delete">Delete item</string>
     
-    <!-- String arrays for cloth saving form spinners -->
+    <!-- String arrays for cloth form spinners -->
     
     <string-array name="spinner_colors">
         <item>Black</item>
