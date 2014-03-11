@@ -4,9 +4,64 @@
     <string name="app_name">DressApp</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
+    
+    <!-- Display Titles -->
+    
     <string name="title_camera_display">CameraDisplay</string>
     <string name="title_cloth_form">ClothForm</string>
+    
+    <!-- Taken picture strings -->
+    
     <string name="button_take_a_picture">Take a picture !</string>
     <string name="contentDescription_taken_picture">Taken picture from camera</string>
+    
+    <!-- Cloth Form labels -->
+    
+    <string name="label_name">Name</string>
+    <string name="hint_name">Name of your cloth</string>
+    <string name="label_type">Type</string>
+    <string name="label_occasion">Occasion</string>
+    <string name="label_colors">Colors</string>
+    <string name="label_season">Season</string>
+    <string name="button_cloth_form_submit">Save my cloth</string>
+    
+    <!-- String arrays for cloth saving form spinners -->
+    
+    <string-array name="spinner_colors">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Brown</item>
+        <item>Green</item>
+        <item>Orange</item>
+        <item>Pink</item>
+        <item>Purple</item>
+        <item >Red</item>  
+        <item >White</item>
+        <item>Yellow</item>
+    </string-array>
+    
+    <string-array name="spinner_type">
+        <item>Accessory</item>
+        <item>Bottom</item>
+        <item>Dress/Full body</item>
+        <item>Shoes</item>
+        <item>Top</item>
+    </string-array>
+    
+    <string-array name="spinner_occasion">
+        <item>Beach/Pool</item>
+        <item>Casual</item>
+        <item>Formal</item>
+        <item>Party</item>
+        <item>Sport</item>
+        <item>Study/Work</item>
+    </string-array>
+    
+    <string-array name="spinner_seasons">
+        <item>Spring</item>
+        <item>Summer</item>
+        <item>Fall</item>
+        <item>Winter</item>
+    </string-array>
 
 </resources>
