@@ -37,6 +37,7 @@ public class CameraPreviewActivity extends Activity implements SurfaceHolder.Cal
 				{					
 				    // On récupère les données.			        
 			        Intent intent = new Intent (CameraPreviewActivity.this, ClothFormActivity.class);
+			        intent.putExtra("mode", ClothFormActivity.e_Mode.SAVE);
 			        intent.putExtra("bitmapPicture", data);
 					startActivity (intent);
 				}

@@ -1,5 +1,7 @@
 package com.dressapp;
 
+import android.os.Bundle;
+
 /**
  * @author Thaïs
  */
@@ -7,7 +9,7 @@ package com.dressapp;
 public class Cloth {
 	
 	private int
-		id;
+		id = -1;
 	private String
 		color1,
 		color2,
@@ -18,6 +20,11 @@ public class Cloth {
 		type;
 	
 	/* ----- CONSTRUCTOR ----- */
+	
+	public Cloth ()
+	{
+		super ();
+	}
 	
 	/**
 	 * @param id
@@ -138,6 +145,33 @@ public class Cloth {
 		this.setOccasion(occasion);
 		this.setSeason(season);
 		this.setType(type);
+	}
+	
+	public Bundle toBundle ()
+	{
+		Bundle b = new Bundle();
+	    b.putInt("id", id);
+	    b.putString("img", img);
+	    b.putString("name", name);
+	    b.putString("color1", color1);
+	    b.putString("color2", color2);
+	    b.putString("occasion", occasion);
+	    b.putString("season", season);
+	    b.putString("type", type);
+	    
+	    return b;
+	}
+	
+	public void fromBundle (Bundle b)
+	{
+	    id = b.getInt("id");
+	    img = b.getString("img");
+	    name = b.getString("name");
+	    color1 = b.getString("color1");
+	    color2 = b.getString("color2");
+	    occasion = b.getString("occasion");
+	    season = b.getString("season");
+	    type = b.getString("type");
 	}
 	
 	/* ----- DATA BASE ----- */

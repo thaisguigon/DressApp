@@ -6,12 +6,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 public class ClothFormActivity extends Activity {
 
-	private enum e_Mode
+	public enum e_Mode
 	{
 		VIEW,
 		EDIT,
@@ -23,6 +26,9 @@ public class ClothFormActivity extends Activity {
 	private Cloth cloth = null;
 	private Button submitButton, cancelButton, editButton, deleteButton;
 	private ImageView imageTakenPicture;
+	private TextView fieldName;
+	private Spinner spinnerType, spinnerOccasion, spinnerColors1, spinnerColors2,
+		spinnerSeasons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,16 +40,34 @@ public class ClothFormActivity extends Activity {
         
         if (extra != null)
         {
-        	// Récupération de la photo prise
-        	byte[] picture_from_Camera = (byte[]) extra.get("bitmapPicture");
-        	
-        	if (picture_from_Camera != null)
-        	{
-        		imageTakenPicture = (ImageView) findViewById (R.id.imageView_taken_picture);
-        		BitmapFactory.Options options = new BitmapFactory.Options();
-		        takenPicture = BitmapFactory.decodeByteArray(picture_from_Camera, 0, picture_from_Camera.length, options);
-        		imageTakenPicture.setImageBitmap(takenPicture);
-        	}
+        	if (extra.get("mode") != null && extra.get("mode") instanceof e_Mode)
+        	mode = (e_Mode) extra.get("mode");
+    		switch (mode)
+    		{
+    			case SAVE :
+    			{
+		        	// Récupération de la photo prise
+		        	byte[] picture_from_Camera = (byte[]) extra.get("bitmapPicture");
+		        	
+		        	if (picture_from_Camera != null)
+		        	{
+		        		imageTakenPicture = (ImageView) findViewById (R.id.imageView_taken_picture);
+		        		BitmapFactory.Options options = new BitmapFactory.Options();
+				        takenPicture = BitmapFactory.decodeByteArray(picture_from_Camera, 0, picture_from_Camera.length, options);
+		        		imageTakenPicture.setImageBitmap(takenPicture);
+		        	}
+		        	break;
+    			}
+    			case VIEW :
+    			{
+    				// Récupération de l'habit visualisé
+    				cloth = new Cloth ();
+    				cloth.fromBundle((Bundle) extra.get("cloth"));
+    				break;
+    			}
+				default:
+					break;
+    		}
         }
         
         submitButton = (Button) findViewById (R.id.button_cloth_form_submit);
@@ -51,7 +75,14 @@ public class ClothFormActivity extends Activity {
         editButton = (Button) findViewById (R.id.button_cloth_form_edit);
         deleteButton = (Button) findViewById (R.id.button_cloth_form_delete);
         
-        setViewMode ();
+        fieldName = (TextView) findViewById(R.id.field_name);
+    	spinnerType = (Spinner) findViewById(R.id.spinner_type);
+    	spinnerOccasion = (Spinner) findViewById(R.id.spinner_occasion);
+    	spinnerColors1 = (Spinner)findViewById(R.id.spinner_colors1);
+    	spinnerColors2 = (Spinner) findViewById(R.id.spinner_colors2);
+    	spinnerSeasons = (Spinner) findViewById(R.id.spinner_seasons);
+        
+        updateForm ();
         
         submitButton.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -67,9 +98,17 @@ public class ClothFormActivity extends Activity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Retour au menu
-				Intent intent = new Intent (ClothFormActivity.this, MainActivity.class);
-				startActivity (intent);
+				if (mode == e_Mode.EDIT)
+				{
+					// Retour sur le mode visualisation
+					setViewMode ();
+				}
+				else
+				{
+					// Retour au menu
+					Intent intent = new Intent (ClothFormActivity.this, MainActivity.class);
+					startActivity (intent);
+				}
 			}
 		});
         
@@ -78,6 +117,15 @@ public class ClothFormActivity extends Activity {
 			public void onClick(View v) {
 				// Passage au mode édition
 				setEditMode ();
+			}
+		});
+        
+        /// TODO - A FAIRE
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// Supression de l'habit en base de données
+				// Retour sur la page de visualisation de tous les habits
 			}
 		});
     }
@@ -93,11 +141,14 @@ public class ClothFormActivity extends Activity {
 			}
 			case EDIT:
 			{
+				updateFieldsWithClothInfo();
 				setEditMode ();
 				break;
 			}
 			default:
+			{
 				break;
+			}
     	}
     }
     
@@ -119,12 +170,12 @@ public class ClothFormActivity extends Activity {
     	
     	// Désactiver les champs
     	
-    	findViewById(R.id.field_name).setEnabled(false);
-    	findViewById(R.id.spinner_type).setEnabled(false);
-    	findViewById(R.id.spinner_occasion).setEnabled(false);
-    	findViewById(R.id.spinner_colors1).setEnabled(false);
-    	findViewById(R.id.spinner_colors2).setEnabled(false);
-    	findViewById(R.id.spinner_seasons).setEnabled(false);
+    	fieldName.setEnabled(false);
+    	spinnerType.setEnabled(false);
+    	spinnerOccasion.setEnabled(false);
+    	spinnerColors1.setEnabled(false);
+    	spinnerColors2.setEnabled(false);
+    	spinnerSeasons.setEnabled(false);
     	
     	// Changer les boutons "Save" & "Cancel" en "Edit" & "Delete"
     	submitButton.setVisibility(View.GONE);
@@ -147,12 +198,12 @@ public class ClothFormActivity extends Activity {
     	
     	// Activer les champs
     	
-    	findViewById(R.id.field_name).setEnabled(true);
-    	findViewById(R.id.spinner_type).setEnabled(true);
-    	findViewById(R.id.spinner_occasion).setEnabled(true);
-    	findViewById(R.id.spinner_colors1).setEnabled(true);
-    	findViewById(R.id.spinner_colors2).setEnabled(true);
-    	findViewById(R.id.spinner_seasons).setEnabled(true);
+    	fieldName.setEnabled(true);
+    	spinnerType.setEnabled(true);
+    	spinnerOccasion.setEnabled(true);
+    	spinnerColors1.setEnabled(true);
+    	spinnerColors2.setEnabled(true);
+    	spinnerSeasons.setEnabled(true);
     	
     	// Changer les boutons "Edit" & "Delete" en "Save" & "Cancel"
     	submitButton.setVisibility(View.VISIBLE);
@@ -163,12 +214,25 @@ public class ClothFormActivity extends Activity {
     	return 0;
     }
     
+    /// TODO - A FAIRE
     public void updateFieldsWithClothInfo ()
     {
     	if (cloth == null)
     		return;
     	
-    	
+    	fieldName.append(cloth.getName());
+    	updateSpinnersToValue(spinnerType, cloth.getType());
+    	updateSpinnersToValue(spinnerOccasion, cloth.getOccasion());
+    	updateSpinnersToValue(spinnerColors1, cloth.getColor1());
+    	updateSpinnersToValue(spinnerColors2, cloth.getColor2());
+    	updateSpinnersToValue(spinnerSeasons, cloth.getSeason());
+    }
+    
+    public void updateSpinnersToValue (Spinner spinner, String value)
+    {
+    	ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
+    	int spinnerPosition = adapter.getPosition(value);
+    	spinner.setSelection(spinnerPosition);
     }
 	
 }

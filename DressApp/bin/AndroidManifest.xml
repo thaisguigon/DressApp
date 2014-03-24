@@ -32,6 +32,10 @@
             android:name=".ClothFormActivity"
             android:label="@string/title_cloth_form">
         </activity>
+        <activity
+            android:name=".AllClothesDisplayActivity"
+            android:label="@string/title_all_clothes">
+        </activity>
     </application>
 
 </manifest>

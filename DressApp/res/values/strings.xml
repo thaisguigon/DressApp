@@ -7,8 +7,9 @@
     
     <!-- Display Titles -->
     
-    <string name="title_camera_display">CameraDisplay</string>
-    <string name="title_cloth_form">ClothForm</string>
+    <string name="title_camera_display">Take a picture</string>
+    <string name="title_cloth_form">Cloth</string>
+    <string name="title_all_clothes">All clothes</string>
     
     <!-- Taken picture strings -->
     
@@ -66,5 +67,8 @@
         <item>Fall</item>
         <item>Winter</item>
     </string-array>
-
+    
+    <!-- All clothes display -->
+    
+    <string name="button_view_all_clothes">View all clothes</string>
 </resources>
