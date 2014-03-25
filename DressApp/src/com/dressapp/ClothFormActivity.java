@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class ClothFormActivity extends Activity {
 
@@ -42,7 +43,39 @@ public class ClothFormActivity extends Activity {
 		@Override
 		protected void onPostExecute (Void result)
 		{
+			String message = "Cloth successfully created !";
+			
+			if (mode == e_Mode.EDIT)
+			{
+				message = "Cloth successfully updated !";
+			}
+			
+			Toast toast = Toast.makeText(getApplicationContext(), message,
+					Toast.LENGTH_SHORT);
+			toast.show();
 			setViewMode();
+		}
+	}
+	
+	private class DeleteDataTask extends AsyncTask<String, Void, Void> {
+
+		@Override
+		protected Void doInBackground(String... url_str) {
+			APIRequestsManager.deleteClothData(url_str[0]);
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute (Void result)
+		{
+			// Toast
+			Toast toast = Toast.makeText(getApplicationContext(), "Cloth successfully deleted !",
+					Toast.LENGTH_SHORT);
+			toast.show();
+			
+			// Retour au menu
+			Intent intent = new Intent (ClothFormActivity.this, MainActivity.class);
+			startActivity (intent);
 		}
 	}
 
@@ -130,8 +163,6 @@ public class ClothFormActivity extends Activity {
 				
 				if (mode == e_Mode.EDIT)
 					url_str += Integer.toString(cloth.getId()) + "/";
-				
-				System.out.println(url_str);
 					
 				new PostOrUpdateDataTask().execute(url_str);
 			}
@@ -162,12 +193,16 @@ public class ClothFormActivity extends Activity {
 			}
 		});
         
-        /// TODO - A FAIRE
         deleteButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				// Supression de l'habit en base de données
-				// Retour sur la page de visualisation de tous les habits
+				if (cloth == null)
+					return;
+				
+				String url_str = "http://dressapp.alwaysdata.net/api/v1/clothes/" +
+						Integer.toString(cloth.getId()) + "/";
+				
+				new DeleteDataTask().execute(url_str);
 			}
 		});
     }

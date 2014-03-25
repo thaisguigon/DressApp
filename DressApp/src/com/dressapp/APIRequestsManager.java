@@ -7,6 +7,7 @@ import java.net.URL;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
@@ -93,7 +94,41 @@ public class APIRequestsManager {
 	        req.setHeader("Content-type", "application/json");
 	        
 			response = httpclient.execute(req);
-			if (response.getStatusLine().getStatusCode() != 201) {
+			if ((mode == e_Mode.SAVE && response.getStatusLine().getStatusCode() != 201) ||
+					(mode == e_Mode.EDIT && response.getStatusLine().getStatusCode() != 204))
+			{
+				throw new RuntimeException("Failed : HTTP error code : "
+						+ response.getStatusLine().getStatusCode());
+			}
+			
+			
+			httpclient.getConnectionManager().shutdown();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return null;
+	}
+
+	public static Void deleteClothData (String url_str)
+	{		
+		HttpClient httpclient;
+		HttpResponse response;
+		HttpDelete req;
+		StringEntity se;
+		
+		try {
+			httpclient = new DefaultHttpClient();
+			req = new HttpDelete(url_str);
+			se = new StringEntity("");
+			
+			se.setContentType("application/json");
+			
+	        req.setHeader("Accept", "application/json");
+	        req.setHeader("Content-type", "application/json");
+	        
+			response = httpclient.execute(req);
+			if (response.getStatusLine().getStatusCode() != 204) {
 				throw new RuntimeException("Failed : HTTP error code : "
 						+ response.getStatusLine().getStatusCode());
 			}
