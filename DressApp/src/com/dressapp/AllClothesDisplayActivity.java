@@ -85,14 +85,42 @@ public class AllClothesDisplayActivity extends Activity {
 		}
 	}
 
+	/**
+	 * Actions exécutées lors de la création de l'activité.
+	 */
 	@Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		
 		// Définition de la vue correspondante à l'activité
         setContentView(R.layout.all_clothes_display);
         
         // Lecture de l'url contenant un json de données de tous les habits de la BDD.
+        //new ReadURLTask().execute("http://dressapp.alwaysdata.net/api/v1/clothes/");
+	}
+	
+	/**
+	 * Actions exécutées lorsque l'activité redevient l'activité courante, après avoir été pausée
+	 * (revient en haut de l'activity stack).
+	 */
+	@Override
+	protected void onResume ()
+	{
+		super.onResume();
+		
+		// On récupère le TableLayout.
+    	tableContainer = (TableLayout) findViewById(R.id.tableContainer);
+    	
+    	// On supprime toutes les lignes du tableau qui y figuraient.
+    	tableContainer.removeAllViews();
+		
+		/*
+		 * Récupération de la nouvelle liste d'habits : nouvelle requête vers l'API.
+		 * Si on ne fait pas de nouvelle requête, on risque de se retrouver avec une liste
+		 * d'habits obsolète (exemple : l'utilisateur a édité le nom d'un habit puis revient en
+		 * arrière sur l'activité "AllClothesDisplay". Le nom de l'habit n'y sera pas actualisé.
+		 */
         new ReadURLTask().execute("http://dressapp.alwaysdata.net/api/v1/clothes/");
 	}
 
