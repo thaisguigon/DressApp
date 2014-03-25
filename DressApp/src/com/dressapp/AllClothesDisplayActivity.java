@@ -1,9 +1,5 @@
 package com.dressapp;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 
 import org.json.JSONException;
@@ -54,45 +50,7 @@ public class AllClothesDisplayActivity extends Activity {
 		@Override
 		protected String doInBackground(String... url_str)
 		{
-			// Objet URL qui permettra d'accéder au contenu de l'url.
-			URL url = null;
-			
-			// Permet la lecture d'un flux en entrée.
-			BufferedReader in = null;
-			
-			// Chaîne temporaire : contient une ligne du fichier à la fois.
-			String inputLine,
-			
-			// Chaîne obtenue à la fin de la lecture.
-				result = "";
-
-			try
-			{
-				/*
-				 * On récupère la chaîne de caractères passée en paramètres (adresse),
-				 * et on crée une nouvelle URL avec cette chaîne.
-				 */
-				url = new URL(url_str[0]);
-				
-				// Ouverture d'un flux pour lire le contenu de la page
-				in = new BufferedReader(new InputStreamReader(url.openStream()));
-				
-				// On lit ligne par ligne
-				while ((inputLine = in.readLine()) != null)
-				{
-					// On ajoute la ligne courante à la chaîne finale
-					result += inputLine;
-				}
-				
-				// Une fois la lecture accomplie, on referme le flux.
-				in.close();
-				
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			
-			// Retour de la chaîne result, remplie avec le contenu de l'URL.
-			return result;
+			return APIRequestsManager.getURIContent(url_str[0]);
 		}
 		
 		/**
@@ -135,7 +93,7 @@ public class AllClothesDisplayActivity extends Activity {
         setContentView(R.layout.all_clothes_display);
         
         // Lecture de l'url contenant un json de données de tous les habits de la BDD.
-        new ReadURLTask().execute("http://dressapp.alwaysdata.net/api/v1/clothes/?format=json");
+        new ReadURLTask().execute("http://dressapp.alwaysdata.net/api/v1/clothes/");
 	}
 
 	/**
@@ -179,7 +137,7 @@ public class AllClothesDisplayActivity extends Activity {
         		// Les Views sont actualisés avec des informations sur l'habit.
         		labelImage.setText(currentCloth.getColor1());
         		labelName.setText(currentCloth.getName());
-        		labelType.setText(currentCloth.getType());
+        		labelType.setText(currentCloth.getCategory());
         		
         		// Définition des paddings.
         		labelImage.setPadding(30, 5, 30, 5);

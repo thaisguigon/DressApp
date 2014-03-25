@@ -1,5 +1,11 @@
 package com.dressapp;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.os.Bundle;
 
 /**
@@ -46,7 +52,7 @@ public class Cloth {
 	/**
 	 * Type (Catégorie) d'habit
 	 */
-	private String type;
+	private String category;
 	
 	/* ----- CONSTRUCTOR ----- */
 	
@@ -185,20 +191,20 @@ public class Cloth {
 
 	/**
 	 * @return String
-	 * {@link Cloth#type}
+	 * {@link Cloth#category}
 	 */
-	public String getType ()
+	public String getCategory ()
 	{
-		return type;
+		return category;
 	}
 
 	/**
 	 * @param String
-	 * {@link Cloth#type}
+	 * {@link Cloth#category}
 	 */
-	public void setType (String type)
+	public void setCategory (String type)
 	{
-		this.type = type;
+		this.category = type;
 	}
 	
 	/* ----- METHODS ----- */
@@ -215,7 +221,7 @@ public class Cloth {
 	 * @param type
 	 */
 	public void edit (String img, String name, String color1, String color2,
-			String occasion, String season, String type)
+			String occasion, String season, String category)
 	{
 		this.setImg(img);
 		this.setName(name);
@@ -223,7 +229,39 @@ public class Cloth {
 		this.setColor2(color2);
 		this.setOccasion(occasion);
 		this.setSeason(season);
-		this.setType(type);
+		this.setCategory(category);
+	}
+	
+	public JSONObject toJSON ()
+	{
+		JSONObject json = new JSONObject ();
+		
+		try {
+			json.put("style", occasion);
+			json.put("name", name);
+			json.put("color1", color1);
+			json.put("color2", color2);
+			json.put("season", season);
+			json.put("category", category);
+			json.put("image", img);
+			
+			json.put("brand", "");
+			json.put("wishlist", false);
+			json.put("favori", false);
+			json.put("user", "/api/v1/user/1/");
+			json.put("slug", "some-slug");
+			
+			Timestamp time = new Timestamp (0);
+			Date date = new Date (time.getTime());
+			
+			System.out.println(date);
+			
+			json.put("publication-date", date.toString());
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		
+		return json;
 	}
 	
 	/* ----- BUNDLE ----- */
@@ -243,7 +281,7 @@ public class Cloth {
 	    b.putString("color2", color2);
 	    b.putString("occasion", occasion);
 	    b.putString("season", season);
-	    b.putString("type", type);
+	    b.putString("category", category);
 	    
 	    return b;
 	}
@@ -261,6 +299,6 @@ public class Cloth {
 	    color2 = b.getString("color2");
 	    occasion = b.getString("occasion");
 	    season = b.getString("season");
-	    type = b.getString("type");
+	    category = b.getString("category");
 	}
 }

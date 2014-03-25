@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -29,6 +30,21 @@ public class ClothFormActivity extends Activity {
 	private TextView fieldName;
 	private Spinner spinnerType, spinnerOccasion, spinnerColors1, spinnerColors2,
 		spinnerSeasons;
+	
+	private class PostDataTask extends AsyncTask<String, Void, Void> {
+
+		@Override
+		protected Void doInBackground(String... url_str) {
+			APIRequestsManager.postClothData(url_str[0], cloth);
+			return null;
+		}
+		
+		@Override
+		protected void onPostExecute (Void result)
+		{
+			setViewMode();
+		}
+	}
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,14 +100,33 @@ public class ClothFormActivity extends Activity {
         
         updateForm ();
         
-        submitButton.setOnClickListener(new View.OnClickListener() {
+        submitButton.setOnClickListener(new View.OnClickListener()
+        {
 			@Override
-			public void onClick(View v) {
-				// Afficher un Toast
+			public void onClick(View v)
+			{
+				cloth = new Cloth ();
+				cloth.edit (
+						// Image
+						"",
+						// Name
+						fieldName.getText().toString(),
+						// Color 1
+						spinnerColors1.getSelectedItem().toString(),
+						// Color 2
+						spinnerColors2.getSelectedItem().toString(),
+						// Occasion
+						spinnerOccasion.getSelectedItem().toString(),
+						// Season
+						spinnerSeasons.getSelectedItem().toString(),
+						// Category
+						spinnerType.getSelectedItem().toString());
+				
+				new PostDataTask().execute("http://dressapp.alwaysdata.net/api/v1/clothes/");
 				
 				// Retour au menu
-				Intent intent = new Intent (ClothFormActivity.this, MainActivity.class);
-				startActivity (intent);
+				//Intent intent = new Intent (ClothFormActivity.this, MainActivity.class);
+				//startActivity (intent);
 			}
 		});
         
@@ -220,16 +255,21 @@ public class ClothFormActivity extends Activity {
     	if (cloth == null)
     		return;
     	
-    	fieldName.append(cloth.getName());
-    	updateSpinnersToValue(spinnerType, cloth.getType());
-    	updateSpinnersToValue(spinnerOccasion, cloth.getOccasion());
-    	updateSpinnersToValue(spinnerColors1, cloth.getColor1());
-    	updateSpinnersToValue(spinnerColors2, cloth.getColor2());
-    	updateSpinnersToValue(spinnerSeasons, cloth.getSeason());
+    	if (fieldName.getText().toString() != cloth.getName())
+    		fieldName.append(cloth.getName());
+    	
+		updateSpinnersToValue(spinnerType, cloth.getCategory());
+		updateSpinnersToValue(spinnerOccasion, cloth.getOccasion());
+		updateSpinnersToValue(spinnerColors1, cloth.getColor1());
+		updateSpinnersToValue(spinnerColors2, cloth.getColor2());
+		updateSpinnersToValue(spinnerSeasons, cloth.getSeason());
     }
     
     public void updateSpinnersToValue (Spinner spinner, String value)
     {
+    	if (spinner.getSelectedItem().toString() ==  value)
+    		return;
+    	
     	ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
     	int spinnerPosition = adapter.getPosition(value);
     	spinner.setSelection(spinnerPosition);

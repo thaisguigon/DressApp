@@ -32,6 +32,7 @@
     <!-- String arrays for cloth form spinners -->
     
     <string-array name="spinner_colors">
+        <item>None</item>
         <item>Black</item>
         <item>Blue</item>
         <item>Brown</item>
@@ -53,15 +54,18 @@
     </string-array>
     
     <string-array name="spinner_occasion">
+        <item>Various styles</item>
         <item>Beach/Pool</item>
         <item>Casual</item>
         <item>Formal</item>
+        <item>Home</item>
         <item>Party</item>
         <item>Sport</item>
         <item>Study/Work</item>
     </string-array>
     
     <string-array name="spinner_seasons">
+        <item>All seasons</item>
         <item>Spring</item>
         <item>Summer</item>
         <item>Fall</item>

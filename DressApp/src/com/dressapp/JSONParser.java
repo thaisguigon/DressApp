@@ -22,7 +22,7 @@ public class JSONParser {
 			color2 = "",
 			occasion = "",
 			season = "",
-			type = "";
+			category = "";
 		
 		if (json.has("id"))
 			id = json.getInt("id");
@@ -33,11 +33,11 @@ public class JSONParser {
 		if (json.has("name"))
 			name = json.getString("name");
 		
-		if (json.has("color"))
-			color1 = json.getString("color");
+		if (json.has("color1"))
+			color1 = json.getString("color1");
 		
-		if (json.has("color"))
-			color2 = json.getString("color");
+		if (json.has("color2"))
+			color2 = json.getString("color2");
 		
 		if (json.has("style"))
 			occasion = json.getString("style");
@@ -45,13 +45,13 @@ public class JSONParser {
 		if (json.has("season"))
 			season = json.getString("season");
 		
-		if (json.has("material"))
-			type = json.getString("material");
+		if (json.has("category"))
+			category = json.getString("category");
 		
 		Cloth cloth = new Cloth ();
 		
 		cloth.setId(id);
-		cloth.edit(img, name, color1, color2, occasion, season, type);
+		cloth.edit(img, name, color1, color2, occasion, season, category);
 		
 		return cloth;
 	}
