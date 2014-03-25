@@ -3,21 +3,50 @@ package com.dressapp;
 import android.os.Bundle;
 
 /**
- * @author Thaïs
+ * Stocke les données concernant un habit.
  */
-
 public class Cloth {
 	
+	/**
+	 * Identifiant de l'habit en base de données.
+	 */
 	private int
 		id = -1;
-	private String
-		color1,
-		color2,
-		img,
-		name,
-		occasion,
-		season,
-		type;
+	
+	/**
+	 * Première couleur de l'habit
+	 */
+	private String color1;
+	
+	/**
+	 * Deuxième couleur de l'habit
+	 */
+	private String color2;
+	
+	/**
+	 * Image représentant l'habit
+	 */
+	private String img;
+	
+	/**
+	 * Nom donné par l'utilisateur à l'habit
+	 */
+	private String name;
+	
+	/**
+	 * Occasion pour laquelle l'habit se porte
+	 */
+	private String occasion;
+	
+	/**
+	 * Saison pendant laquelle l'habit se porte
+	 */
+	private String season;
+
+	/**
+	 * Type (Catégorie) d'habit
+	 */
+	private String type;
 	
 	/* ----- CONSTRUCTOR ----- */
 	
@@ -26,96 +55,147 @@ public class Cloth {
 		super ();
 	}
 	
-	/**
-	 * @param id
-	 * @param img
-	 * @param name
-	 */
-	public Cloth (int id, String img, String name)
-	{
-		super();
-		this.id = id;
-		this.img = img;
-		this.name = name;
-	}
-	
 	/* ----- GETTERS AND SETTERS ----- */
 	
+	/**
+	 * @return String
+	 * {@link Cloth#color1}
+	 */
 	public String getColor1 ()
 	{
 		return color1;
 	}
 
+	/**
+	 * @param String
+	 * {@link Cloth#color1}
+	 */
 	public void setColor1 (String color1)
 	{
 		this.color1 = color1;
 	}
 	
+	/**
+	 * @return String
+	 * {@link Cloth#color2}
+	 */
 	public String getColor2 ()
 	{
 		return color2;
 	}
 
+	/**
+	 * @param String
+	 * {@link Cloth#color2}
+	 */
 	public void setColor2 (String color2)
 	{
 		this.color2 = color2;
 	}
 
+	/**
+	 * @return Int
+	 * {@link Cloth#id}
+	 */
 	public int getId ()
 	{
 		return id;
 	}
 
+	/**
+	 * @param Int
+	 * {@link Cloth#id}
+	 */
 	public void setId (int id)
 	{
 		this.id = id;
 	}
 
+	/**
+	 * @return String
+	 * {@link Cloth#img}
+	 */
 	public String getImg ()
 	{
 		return img;
 	}
 
+	/**
+	 * @param String
+	 * {@link Cloth#img}
+	 */
 	public void setImg (String img)
 	{
 		this.img = img;
 	}
 
+	/**
+	 * @return String
+	 * {@link Cloth#name}
+	 */
 	public String getName ()
 	{
 		return name;
 	}
 	
+	/**
+	 * @param String
+	 * {@link Cloth#name}
+	 */
 	public void setName (String name)
 	{
 		this.name = name;
 	}
 	
+	/**
+	 * @return String
+	 * {@link Cloth#occasion}
+	 */
 	public String getOccasion ()
 	{
 		return occasion;
 	}
 
+	/**
+	 * @param String
+	 * {@link Cloth#occasion}
+	 */
 	public void setOccasion (String occasion)
 	{
 		this.occasion = occasion;
 	}
 
+	/**
+	 * @return String
+	 * {@link Cloth#season}
+	 */
 	public String getSeason ()
 	{
 		return season;
 	}
 
+	/**
+	 * @param String
+	 * {@link Cloth#season}
+	 */
 	public void setSeason (String season)
 	{
 		this.season = season;
 	}
 
+	/**
+	 * @return String
+	 * {@link Cloth#type}
+	 */
 	public String getType ()
 	{
 		return type;
 	}
 
+	/**
+	 * @param String
+	 * {@link Cloth#type}
+	 */
 	public void setType (String type)
 	{
 		this.type = type;
@@ -139,7 +219,6 @@ public class Cloth {
 	{
 		this.setImg(img);
 		this.setName(name);
-		
 		this.setColor1(color1);
 		this.setColor2(color2);
 		this.setOccasion(occasion);
@@ -147,6 +226,13 @@ public class Cloth {
 		this.setType(type);
 	}
 	
+	/* ----- BUNDLE ----- */
+	
+	/**
+	 * Conversion de l'habit en Bundle afin de mieux le passer en tant que donnée entre les
+	 * différentes activités.
+	 * @return Bundle Données de l'habit mises en place dans le Bundle
+	 */
 	public Bundle toBundle ()
 	{
 		Bundle b = new Bundle();
@@ -162,6 +248,10 @@ public class Cloth {
 	    return b;
 	}
 	
+	/**
+	 * Retransformation d'un bundle en habit.
+	 * @param Bundle Bundle contenant les données d'un habit.
+	 */
 	public void fromBundle (Bundle b)
 	{
 	    id = b.getInt("id");
@@ -173,31 +263,4 @@ public class Cloth {
 	    season = b.getString("season");
 	    type = b.getString("type");
 	}
-	
-	/* ----- DATA BASE ----- */
-	
-	/**
-	 * Edite le vêtement dans la base de données.
-	 */
-	public void editInDataBase ()
-	{
-		
-	}
-	
-	/**
-	 * Sauvegarde le vêtement dans la base de données.
-	 */
-	public void saveInDataBase ()
-	{
-		
-	}
-	
-	/**
-	 * Supprime le vêtement de la base de données.
-	 */
-	public void deleteInDataBase ()
-	{
-		
-	}
-	
 }

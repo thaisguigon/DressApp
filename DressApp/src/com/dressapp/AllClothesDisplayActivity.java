@@ -49,7 +49,6 @@ public class AllClothesDisplayActivity extends Activity {
 		 * Tâche asynchrone à exécuter en background.
 		 * @return String Retourne le contenu de l'URL sous forme de chaîne de caractères.
 		 *
-		 * (non-Javadoc)
 		 * @see android.os.AsyncTask#doInBackground(Params[])
 		 */
 		@Override
@@ -100,7 +99,6 @@ public class AllClothesDisplayActivity extends Activity {
 		 * Le code s'exécutera une fois la tâche de lecture de l'URL accomplie.
 		 * Le paramètre est la chaîne-résultat obtenue suite à la lecture du contenu de l'URL.
 		 *
-		 * (non-Javadoc)
 		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
 		 */
 		@Override
@@ -214,12 +212,12 @@ public class AllClothesDisplayActivity extends Activity {
         				 * On transmet à l'activité suivante des données via les Extras :
         				 * - le mode du formulaire. Ici il s'agit du mode VIEW car il
         				 * s'agit de la prévisualisation d'un habit.
-        				 * @see ClothFormActivity.e_Mode
+        				 * @see ClothFormActivity#e_Mode
         				 * - les données de l'habit. Cela évite d'avoir à refaire une requête
         				 * sur une autre URL. Les données sont transmises sous forme de Bundle,
         				 * l'habit pourra ensuite être reconstitué à partir de ce Bundle.
-        				 * @see {@link Cloth.toBundle()}
-        				 * @see {@link Cloth.fromBundle()}
+        				 * @see Cloth#toBundle()
+        				 * @see Cloth#fromBundle()
         				 */
         				intent.putExtra("mode", ClothFormActivity.e_Mode.VIEW);
         				intent.putExtra("cloth", currentCloth.toBundle());

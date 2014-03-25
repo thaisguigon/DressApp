@@ -15,28 +15,61 @@ import android.view.WindowManager;
 import android.widget.Button;
 
 /**
- * @author Thaïs
- *
+ * Cette activité permet l'affichage de la caméra et la prise de photo.
  */
 public class CameraPreviewActivity extends Activity implements SurfaceHolder.Callback {
 	
-	private Camera camera;
-	private SurfaceView surfaceCamera;
-	private Button buttonTakePicture;
+	/**
+	 * Définit si l'on est en mode prévisualisation ou non.
+	 */
 	private Boolean isPreview;
+	
+	/**
+	 * Bouton clickable pour prendre une photo.
+	 */
+	private Button buttonTakePicture;
+	
+	/**
+	 * Caméra utilisée pour prendre la photo.
+	 */
+	private Camera camera;
+	
+	/**
+	 * Surface sur laquelle est affichée la prévisualisation de la caméra.
+	 */
+	private SurfaceView surfaceCamera;
+	
+	/**
+	 * Ecouteur de click : prend une photo lorsque l'on clique sur l'élément.
+	 */
 	private View.OnClickListener takePictureListener = new View.OnClickListener ()
     {
-
-    	// Callback pour prise de photo.
+    	/**
+    	 * Callback pour prise de photo.
+    	 */
 	    Camera.PictureCallback pictureCallback = new Camera.PictureCallback ()
 	    {
-
-	    	public void onPictureTaken(byte[] data, Camera camera)
+	    	/**
+	    	 * Actions à exécuter dès que la photo a été prise.
+	    	 * @param byte[] Données de la photo prise (données d'image).
+	    	 */
+	    	public void onPictureTaken (byte[] data, Camera camera)
 	    	{
 				if (data != null)
 				{					
-				    // On récupère les données.			        
+				    /*
+				     * On initialise un nouvel intent : une fois la photo prise,
+				     * on est dirigé vers le formulaire de sauvegarde d'habit.	        
+				     */
 			        Intent intent = new Intent (CameraPreviewActivity.this, ClothFormActivity.class);
+			        
+			        /**
+			         * On passe des données à la prochaine activité :
+			         * - Le mode : en mode SAVE car le formulaire de sauvegarde d'habit
+			         * doit s'afficher.
+			         * @see {@link ClothForm#e_Mode}
+			         * - Les données de l'image.
+			         */
 			        intent.putExtra("mode", ClothFormActivity.e_Mode.SAVE);
 			        intent.putExtra("bitmapPicture", data);
 					startActivity (intent);
@@ -56,63 +89,79 @@ public class CameraPreviewActivity extends Activity implements SurfaceHolder.Cal
         }
     };
 	
-	/**
-	 * Création de l'activité
-	 * 
-	 * @since v1.0 2014-02-25
-	 */
+    /**
+     * Actions à exécuter dès la création de l'activité.
+     */
 	@Override
 	public void onCreate (Bundle savedInstanceState)
 	{
 	    super.onCreate (savedInstanceState);
 
+	    // Définition des paramètres de la fenêtre.
 	    getWindow().setFormat (PixelFormat.TRANSLUCENT);
 	    requestWindowFeature(Window.FEATURE_NO_TITLE);
 	    getWindow().setFlags (WindowManager.LayoutParams.FLAG_FULLSCREEN,
 	            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+	    // On n'est pas encore en mode prévisualisation.
 	    isPreview = false;
 	    
+	    // On associe la vue correspondante à l'activité.
 	    setContentView (R.layout.camera_display);
 
-	    // Récupération de la surface.
+	    // Récupération de la surface qui affichera la caméra.
 	    surfaceCamera = (SurfaceView) findViewById (R.id.surfaceViewCamera);
 	    
 	    // Récupération du bouton "take a picture"
 	    buttonTakePicture = (Button) findViewById (R.id.buttonTakeAPicture);
 	    
-	    // Initialisation de la camera.
+	    // Initialisation de la caméra.
 	    surfaceCamera.getHolder().addCallback (this);
         
-	    // Ajout du listener sur la surface et le bouton
+	    /*
+	     * Ajout du listener sur la surface et sur le bouton :
+	     * on pourra prendre des photos en cliquant n'importe où sur l'écran.
+	     */
         surfaceCamera.setOnClickListener(takePictureListener);
         buttonTakePicture.setOnClickListener(takePictureListener);
         
 	}
 
+	/**
+	 * Définit les actions lorsque l'utilisateur reprend l'activité depuis un état "en pause".
+	 * 
+	 * @see android.app.Activity#onResume()
+	 */
 	@Override
 	public void onResume ()
 	{
 	    super.onResume();
+	    
+	    // On ouvre à nouveau la caméra.
 	    camera = Camera.open();
 	}
 	
+	/**
+	 * Définit les actions à exécuter lorsque l'application est mise en pause.
+	 * 
+	 * @see android.app.Activity#onPause()
+	 */
 	@Override
 	public void onPause ()
 	{
 	    super.onPause();
 
+	    // Si la caméra existe,
 	    if (camera != null)
 	    {
+	    	// On stoppe la caméra.
 	        camera.release();
 	        camera = null;
 	    }
 	}
 	
 	/**
-	 * Indique ce qu'il se passe lorsque la surface est modifiée.
-	 * 
-	 * @since v1.0 2014-02-25
+	 * Indique ce qui se passe lorsque la surface d'affichage est modifiée.
 	 */
 	@Override
 	public void surfaceChanged (SurfaceHolder holder, int format, int width, int height)
@@ -161,8 +210,6 @@ public class CameraPreviewActivity extends Activity implements SurfaceHolder.Cal
 
 	/**
 	 * Indique ce qu'il se passe lors de la création de la surface.
-	 * 
-	 * @since v1.0 2014-02-25
 	 */
 	@Override
 	public void surfaceCreated (SurfaceHolder holder)
@@ -176,8 +223,6 @@ public class CameraPreviewActivity extends Activity implements SurfaceHolder.Cal
 
 	/**
 	 * Indique ce qu'il se passe lorsque la surface est supprimée.
-	 * 
-	 * @since v1.0 2014-02-25
 	 */
 	@Override
 	public void surfaceDestroyed (SurfaceHolder holder)
