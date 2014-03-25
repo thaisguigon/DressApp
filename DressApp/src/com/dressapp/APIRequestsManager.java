@@ -8,11 +8,13 @@ import java.net.URL;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONObject;
 
-import android.util.Log;
+import com.dressapp.ClothFormActivity.e_Mode;
 
 public class APIRequestsManager {
 
@@ -58,31 +60,42 @@ public class APIRequestsManager {
 		// Retour de la chaîne result, remplie avec le contenu de l'URL.
 		return result;
 	}
-	
-	public static Void postClothData (String url_str, Cloth cloth)
+		
+	public static Void postOrUpdateClothData (String url_str, Cloth cloth, e_Mode mode)
 	{
-		if (cloth == null)
+		if (cloth == null || mode == e_Mode.VIEW)
 			return null;
 		
 		JSONObject json = cloth.toJSON();
 		
-		HttpClient httpclient = new DefaultHttpClient();  
-        HttpPost httpost = new HttpPost(url_str);
-        HttpResponse responsePOST;
-        StringEntity se;
-        
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpResponse response;
+		HttpUriRequest req;
+		StringEntity se;
+		
 		try {
 			se = new StringEntity(json.toString());
+			
+			if (mode == e_Mode.SAVE)
+			{
+		        req = new HttpPost(url_str);
+		        ((HttpPost) req).setEntity(se);
+			}
+			else
+			{
+				req = new HttpPut(url_str);
+				((HttpPut) req).setEntity(se);
+			}
+			
 			se.setContentType("application/json");
+			
+	        req.setHeader("Accept", "application/json");
+	        req.setHeader("Content-type", "application/json");
 	        
-	        httpost.setEntity(se);
-	        httpost.setHeader("Accept", "application/json");
-	        httpost.setHeader("Content-type", "application/json");
-	        
-			responsePOST = httpclient.execute(httpost);
-			if (responsePOST.getStatusLine().getStatusCode() != 201) {
+			response = httpclient.execute(req);
+			if (response.getStatusLine().getStatusCode() != 201) {
 				throw new RuntimeException("Failed : HTTP error code : "
-						+ responsePOST.getStatusLine().getStatusCode());
+						+ response.getStatusLine().getStatusCode());
 			}
 			
 			httpclient.getConnectionManager().shutdown();
@@ -92,5 +105,4 @@ public class APIRequestsManager {
 		
 		return null;
 	}
-	
 }

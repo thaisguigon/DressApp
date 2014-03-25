@@ -236,7 +236,7 @@ public class Cloth {
 	{
 		JSONObject json = new JSONObject ();
 		
-		try {
+		try {			
 			json.put("style", occasion);
 			json.put("name", name);
 			json.put("color1", color1);

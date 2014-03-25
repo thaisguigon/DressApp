@@ -31,11 +31,11 @@ public class ClothFormActivity extends Activity {
 	private Spinner spinnerType, spinnerOccasion, spinnerColors1, spinnerColors2,
 		spinnerSeasons;
 	
-	private class PostDataTask extends AsyncTask<String, Void, Void> {
+	private class PostOrUpdateDataTask extends AsyncTask<String, Void, Void> {
 
 		@Override
 		protected Void doInBackground(String... url_str) {
-			APIRequestsManager.postClothData(url_str[0], cloth);
+			APIRequestsManager.postOrUpdateClothData(url_str[0], cloth, mode);
 			return null;
 		}
 		
@@ -105,7 +105,13 @@ public class ClothFormActivity extends Activity {
 			@Override
 			public void onClick(View v)
 			{
-				cloth = new Cloth ();
+				String url_str = "http://dressapp.alwaysdata.net/api/v1/clothes/";
+				
+				if (cloth == null)
+				{
+					cloth = new Cloth ();
+				}
+				
 				cloth.edit (
 						// Image
 						"",
@@ -122,11 +128,12 @@ public class ClothFormActivity extends Activity {
 						// Category
 						spinnerType.getSelectedItem().toString());
 				
-				new PostDataTask().execute("http://dressapp.alwaysdata.net/api/v1/clothes/");
+				if (mode == e_Mode.EDIT)
+					url_str += Integer.toString(cloth.getId()) + "/";
 				
-				// Retour au menu
-				//Intent intent = new Intent (ClothFormActivity.this, MainActivity.class);
-				//startActivity (intent);
+				System.out.println(url_str);
+					
+				new PostOrUpdateDataTask().execute(url_str);
 			}
 		});
         
@@ -255,7 +262,7 @@ public class ClothFormActivity extends Activity {
     	if (cloth == null)
     		return;
     	
-    	if (fieldName.getText().toString() != cloth.getName())
+    	if (!(fieldName.getText().toString()).equals(cloth.getName()))
     		fieldName.append(cloth.getName());
     	
 		updateSpinnersToValue(spinnerType, cloth.getCategory());
@@ -267,7 +274,7 @@ public class ClothFormActivity extends Activity {
     
     public void updateSpinnersToValue (Spinner spinner, String value)
     {
-    	if (spinner.getSelectedItem().toString() ==  value)
+    	if (spinner.getSelectedItem().toString().equals(value))
     		return;
     	
     	ArrayAdapter<String> adapter = (ArrayAdapter<String>) spinner.getAdapter();
