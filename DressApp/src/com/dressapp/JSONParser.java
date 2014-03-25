@@ -24,14 +24,29 @@ public class JSONParser {
 			season = "",
 			type = "";
 		
-		id = json.getInt("id");
-		img = json.getString("image");
-		name = json.getString("name");
-		color1 = json.getString("color");
-		color2 = json.getString("color");
-		occasion = json.getString("style");
-		season = json.getString("season");
-		type = json.getString("material");
+		if (json.has("id"))
+			id = json.getInt("id");
+		
+		if (json.has("image"))
+			img = json.getString("image");
+		
+		if (json.has("name"))
+			name = json.getString("name");
+		
+		if (json.has("color"))
+			color1 = json.getString("color");
+		
+		if (json.has("color"))
+			color2 = json.getString("color");
+		
+		if (json.has("style"))
+			occasion = json.getString("style");
+		
+		if (json.has("season"))
+			season = json.getString("season");
+		
+		if (json.has("material"))
+			type = json.getString("material");
 		
 		Cloth cloth = new Cloth ();
 		
