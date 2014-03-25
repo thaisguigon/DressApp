@@ -2,6 +2,7 @@ package com.dressapp;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.Locale;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -249,7 +250,7 @@ public class Cloth {
 			json.put("wishlist", false);
 			json.put("favori", false);
 			json.put("user", "/api/v1/user/1/");
-			json.put("slug", "some-slug");
+			json.put("slug", slugify());
 			
 			Timestamp time = new Timestamp (0);
 			Date date = new Date (time.getTime());
@@ -262,6 +263,11 @@ public class Cloth {
 		}
 		
 		return json;
+	}
+	
+	public String slugify ()
+	{
+		return name.toLowerCase(Locale.FRANCE).replaceAll("[^a-z0-9-]", "-");
 	}
 	
 	/* ----- BUNDLE ----- */

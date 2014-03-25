@@ -95,9 +95,6 @@ public class AllClothesDisplayActivity extends Activity {
 		
 		// Définition de la vue correspondante à l'activité
         setContentView(R.layout.all_clothes_display);
-        
-        // Lecture de l'url contenant un json de données de tous les habits de la BDD.
-        //new ReadURLTask().execute("http://dressapp.alwaysdata.net/api/v1/clothes/");
 	}
 	
 	/**
