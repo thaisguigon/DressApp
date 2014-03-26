@@ -27,10 +27,11 @@ public class ClothFormActivity extends Activity {
 	private Bitmap takenPicture;
 	private Cloth cloth = null;
 	private Button submitButton, cancelButton, editButton, deleteButton;
-	private ImageView imageTakenPicture;
+	private ImageView imageViewPicture;
 	private TextView fieldName;
 	private Spinner spinnerType, spinnerOccasion, spinnerColors1, spinnerColors2,
 		spinnerSeasons;
+	private byte[] picture;
 	
 	private class PostOrUpdateDataTask extends AsyncTask<String, Void, Void> {
 
@@ -90,21 +91,14 @@ public class ClothFormActivity extends Activity {
         if (extra != null)
         {
         	if (extra.get("mode") != null && extra.get("mode") instanceof e_Mode)
-        	mode = (e_Mode) extra.get("mode");
+        		mode = (e_Mode) extra.get("mode");
+        	
     		switch (mode)
     		{
     			case SAVE :
     			{
 		        	// Récupération de la photo prise
-		        	byte[] picture_from_Camera = (byte[]) extra.get("bitmapPicture");
-		        	
-		        	if (picture_from_Camera != null)
-		        	{
-		        		imageTakenPicture = (ImageView) findViewById (R.id.imageView_taken_picture);
-		        		BitmapFactory.Options options = new BitmapFactory.Options();
-				        takenPicture = BitmapFactory.decodeByteArray(picture_from_Camera, 0, picture_from_Camera.length, options);
-		        		imageTakenPicture.setImageBitmap(takenPicture);
-		        	}
+		        	picture = (byte[]) extra.get("bitmapPicture");
 		        	break;
     			}
     			case VIEW :
@@ -112,12 +106,23 @@ public class ClothFormActivity extends Activity {
     				// Récupération de l'habit visualisé
     				cloth = new Cloth ();
     				cloth.fromBundle((Bundle) extra.get("cloth"));
+    				picture = cloth.getImg();
+    				
     				break;
     			}
 				default:
 					break;
     		}
         }
+        
+        if (picture != null)
+    	{
+        	System.out.println(picture.length);
+    		imageViewPicture = (ImageView) findViewById (R.id.imageView_taken_picture);
+    		BitmapFactory.Options options = new BitmapFactory.Options();
+	        takenPicture = BitmapFactory.decodeByteArray(picture, 0, picture.length, options);
+    		imageViewPicture.setImageBitmap(takenPicture);
+    	}
         
         submitButton = (Button) findViewById (R.id.button_cloth_form_submit);
         cancelButton = (Button) findViewById (R.id.button_cloth_form_cancel);
@@ -146,8 +151,6 @@ public class ClothFormActivity extends Activity {
 				}
 				
 				cloth.edit (
-						// Image
-						"",
 						// Name
 						fieldName.getText().toString(),
 						// Color 1
@@ -160,6 +163,11 @@ public class ClothFormActivity extends Activity {
 						spinnerSeasons.getSelectedItem().toString(),
 						// Category
 						spinnerType.getSelectedItem().toString());
+				
+				if (picture.length > 0)
+				{
+					cloth.setImg(picture);
+				}
 				
 				if (mode == e_Mode.EDIT)
 					url_str += Integer.toString(cloth.getId()) + "/";

@@ -6,6 +6,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.util.Base64;
+
 public class JSONParser {
 
 	public static Cloth parseCloth (JSONObject json) throws JSONException
@@ -16,19 +18,16 @@ public class JSONParser {
 		
 		int id = 0;
 		String
-			img = "",
 			name = "",
 			color1 = "",
 			color2 = "",
 			occasion = "",
 			season = "",
 			category = "";
+		byte[] img = null;
 		
 		if (json.has("id"))
 			id = json.getInt("id");
-		
-		if (json.has("image"))
-			img = json.getString("image");
 		
 		if (json.has("name"))
 			name = json.getString("name");
@@ -48,10 +47,14 @@ public class JSONParser {
 		if (json.has("category"))
 			category = json.getString("category");
 		
+		if (json.has("image"))
+			img = Base64.decode(json.getString("image"), Base64.DEFAULT);
+		
 		Cloth cloth = new Cloth ();
 		
 		cloth.setId(id);
-		cloth.edit(img, name, color1, color2, occasion, season, category);
+		cloth.edit(name, color1, color2, occasion, season, category);
+		cloth.setImg(img);
 		
 		return cloth;
 	}

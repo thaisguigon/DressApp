@@ -7,10 +7,16 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -34,7 +40,7 @@ public class AllClothesDisplayActivity extends Activity {
 	 * Layout de la vue.
 	 */
 	private TableLayout tableContainer;
-	
+		
 	/**
 	 * Tâche asynchrone qui permet la lecture du contenu d'une url.
 	 * Le lien avec l'API web se fait ici.
@@ -149,7 +155,7 @@ public class AllClothesDisplayActivity extends Activity {
         		 * les informations de l'habit : ils serviront à afficher
         		 * l'image, le nom et le type de l'habit sur une ligne.
         		 */
-        		TextView labelImage = new TextView(getApplicationContext());
+        		ImageView labelImage = new ImageView(getApplicationContext());
         		TextView labelName = new TextView(getApplicationContext());
         		TextView labelType = new TextView(getApplicationContext());
         		
@@ -159,18 +165,31 @@ public class AllClothesDisplayActivity extends Activity {
         			row.setBackgroundColor(Color.LTGRAY);
         		}
         		
+        		if (currentCloth.getImg() != null)
+            	{           		
+        			byte[] picture = currentCloth.getImg();
+            		BitmapFactory.Options options = new BitmapFactory.Options();
+        	        Bitmap bitmapPicture = BitmapFactory.decodeByteArray(picture, 0, picture.length, options);
+            		
+        	        if (bitmapPicture != null)
+        	        {
+        	        	int scaledWidth = bitmapPicture.getWidth()/bitmapPicture.getHeight()*120;
+        	        	Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmapPicture, scaledWidth, 120, false);
+        	        	labelImage.setImageBitmap(scaledBitmap);
+        	        }
+            	}
+        		
+        		//labelImage.setPadding(30, 5, 30, 5);
+        		
         		// Les Views sont actualisés avec des informations sur l'habit.
-        		labelImage.setText(currentCloth.getColor1());
         		labelName.setText(currentCloth.getName());
         		labelType.setText(currentCloth.getCategory());
         		
-        		// Définition des paddings.
-        		labelImage.setPadding(30, 5, 30, 5);
-        		labelName.setPadding(20, 20, 20, 20);
-        		labelType.setPadding(20, 20, 20, 20);
+        		// Définition des paddings.        		
+        		labelName.setPadding(50, 30, 20, 20);
+        		labelType.setPadding(20, 50, 20, 20);
         		
         		// Définition des couleurs de texte.
-        		labelImage.setTextColor(Color.BLACK);
         		labelName.setTextColor(Color.BLACK);
         		labelType.setTextColor(Color.BLACK);
         		

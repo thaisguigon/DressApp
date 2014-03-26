@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.Bundle;
+import android.util.Base64;
 
 /**
  * Stocke les données concernant un habit.
@@ -31,10 +32,10 @@ public class Cloth {
 	private String color2;
 	
 	/**
-	 * Image représentant l'habit
+	 * Image représentant l'habit.
 	 */
-	private String img;
-	
+	private byte[] img;
+
 	/**
 	 * Nom donné par l'utilisateur à l'habit
 	 */
@@ -117,22 +118,20 @@ public class Cloth {
 	{
 		this.id = id;
 	}
-
+	
 	/**
-	 * @return String
+	 * @return byte[]
 	 * {@link Cloth#img}
 	 */
-	public String getImg ()
-	{
+	public byte[] getImg() {
 		return img;
 	}
 
 	/**
-	 * @param String
+	 * @param byte[]
 	 * {@link Cloth#img}
 	 */
-	public void setImg (String img)
-	{
+	public void setImg(byte[] img) {
 		this.img = img;
 	}
 
@@ -221,10 +220,9 @@ public class Cloth {
 	 * @param season
 	 * @param type
 	 */
-	public void edit (String img, String name, String color1, String color2,
+	public void edit (String name, String color1, String color2,
 			String occasion, String season, String category)
 	{
-		this.setImg(img);
 		this.setName(name);
 		this.setColor1(color1);
 		this.setColor2(color2);
@@ -244,7 +242,7 @@ public class Cloth {
 			json.put("color2", color2);
 			json.put("season", season);
 			json.put("category", category);
-			json.put("image", img);
+			//json.put("image", img_str);
 			
 			json.put("brand", "");
 			json.put("wishlist", false);
@@ -255,9 +253,14 @@ public class Cloth {
 			Timestamp time = new Timestamp (0);
 			Date date = new Date (time.getTime());
 			
-			System.out.println(date);
-			
 			json.put("publication-date", date.toString());
+			
+			if (img.length > 0)
+			{
+				String encodedImg = Base64.encodeToString(img, Base64.DEFAULT);
+				json.put("image", encodedImg);
+			}
+			
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -265,6 +268,10 @@ public class Cloth {
 		return json;
 	}
 	
+	/**
+	 * Crée un slug pour l'habit à partir de son nom.
+	 * @return String Le slug de l'habit, composé de caractères minuscules et de tirets (-).
+	 */
 	public String slugify ()
 	{
 		return name.toLowerCase(Locale.FRANCE).replaceAll("[^a-z0-9-]", "-");
@@ -281,13 +288,13 @@ public class Cloth {
 	{
 		Bundle b = new Bundle();
 	    b.putInt("id", id);
-	    b.putString("img", img);
 	    b.putString("name", name);
 	    b.putString("color1", color1);
 	    b.putString("color2", color2);
 	    b.putString("occasion", occasion);
 	    b.putString("season", season);
 	    b.putString("category", category);
+	    b.putByteArray("img", img);
 	    
 	    return b;
 	}
@@ -299,12 +306,12 @@ public class Cloth {
 	public void fromBundle (Bundle b)
 	{
 	    id = b.getInt("id");
-	    img = b.getString("img");
 	    name = b.getString("name");
 	    color1 = b.getString("color1");
 	    color2 = b.getString("color2");
 	    occasion = b.getString("occasion");
 	    season = b.getString("season");
 	    category = b.getString("category");
+	    img = b.getByteArray("img");
 	}
 }

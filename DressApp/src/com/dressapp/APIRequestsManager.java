@@ -61,7 +61,7 @@ public class APIRequestsManager {
 		// Retour de la chaîne result, remplie avec le contenu de l'URL.
 		return result;
 	}
-		
+	
 	public static Void postOrUpdateClothData (String url_str, Cloth cloth, e_Mode mode)
 	{
 		if (cloth == null || mode == e_Mode.VIEW)
