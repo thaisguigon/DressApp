@@ -127,10 +127,19 @@ public class APIRequestsManager {
 	{
 		//JSONObject json = null;
 		String url_str = "http://dressapp.alwaysdata.net/user/login/"+username+"/"+password;
+		int result = -1;
+		boolean boolResult = false;
 		
 		try {
-			//json = new JSONObject("{'username':'"+username+"','password':'"+password+"'}");
-			return Boolean.valueOf(getURIContent(url_str));
+			result = Integer.parseInt(getURIContent(url_str));
+			boolResult = result > 0 ? true : false;
+			if (boolResult)
+			{
+				MainActivity.user.setConnected(true);
+				MainActivity.user.setUserId(result);
+				MainActivity.user.setUsername(username);
+			}
+			return boolResult;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

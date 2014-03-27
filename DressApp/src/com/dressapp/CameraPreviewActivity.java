@@ -96,6 +96,13 @@ public class CameraPreviewActivity extends Activity implements SurfaceHolder.Cal
 	public void onCreate (Bundle savedInstanceState)
 	{
 	    super.onCreate (savedInstanceState);
+	    
+	    if (MainActivity.user == null || !MainActivity.user.isConnected())
+        {
+        	// User déconnecté : on le renvoie au formulaire de connexion.
+        	Intent intent = new Intent (CameraPreviewActivity.this, LoginFormActivity.class);
+			startActivity (intent);
+        }
 
 	    // Définition des paramètres de la fenêtre.
 	    getWindow().setFormat (PixelFormat.TRANSLUCENT);
@@ -136,6 +143,13 @@ public class CameraPreviewActivity extends Activity implements SurfaceHolder.Cal
 	public void onResume ()
 	{
 	    super.onResume();
+
+	    if (MainActivity.user == null || !MainActivity.user.isConnected())
+        {
+        	// User déconnecté : on le renvoie au formulaire de connexion.
+        	Intent intent = new Intent (CameraPreviewActivity.this, LoginFormActivity.class);
+			startActivity (intent);
+        }
 	    
 	    // On ouvre à nouveau la caméra.
 	    camera = Camera.open();

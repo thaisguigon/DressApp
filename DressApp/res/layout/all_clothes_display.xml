@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/tableContainer"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/paper_3"
      >
+     
+    <TableLayout
+        android:id="@+id/tableContainer"
+        android:layout_width="match_parent"
+    	android:layout_height="wrap_content" >
+        
+    </TableLayout>
 
-</TableLayout>
+</ScrollView>

@@ -56,8 +56,6 @@ public class Cloth {
 	 */
 	private String category;
 	
-	private int userId = -1;
-	
 	/* ----- CONSTRUCTOR ----- */
 	
 	public Cloth ()
@@ -209,14 +207,6 @@ public class Cloth {
 		this.category = type;
 	}
 	
-	public int getUserId() {
-		return userId;
-	}
-
-	public void setUserId(int userId) {
-		this.userId = 1/*userId*/;
-	}
-	
 	/* ----- METHODS ----- */
 
 	/**
@@ -257,7 +247,7 @@ public class Cloth {
 			json.put("brand", "");
 			json.put("wishlist", false);
 			json.put("favori", false);
-			json.put("user", "/api/v1/user/1/");
+			json.put("user", MainActivity.user.getUserId());
 			json.put("slug", slugify());
 			
 			Timestamp time = new Timestamp (0);

@@ -50,6 +50,14 @@ public class InscriptionFormActivity extends Activity {
     protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		
+		if (MainActivity.user != null && MainActivity.user.isConnected())
+	    {
+	    	// Le formulaire d'inscription n'est pas accessible lorsque l'user est déjà connecté.
+	    	Intent intent = new Intent (InscriptionFormActivity.this, MainActivity.class);
+			startActivity (intent);
+	    }
+		
         setContentView(R.layout.inscription_form);
         
         fieldUserName = (EditText) findViewById(R.id.fieldUserName);
@@ -79,5 +87,17 @@ public class InscriptionFormActivity extends Activity {
 				startActivity (intent);
 			}
 		});
+	}
+	
+	@Override
+	protected void onResume ()
+	{
+		super.onResume();
+		if (MainActivity.user != null && MainActivity.user.isConnected())
+	    {
+	    	// Le formulaire d'inscription n'est pas accessible lorsque l'user est déjà connecté.
+	    	Intent intent = new Intent (InscriptionFormActivity.this, MainActivity.class);
+			startActivity (intent);
+	    }
 	}
 }

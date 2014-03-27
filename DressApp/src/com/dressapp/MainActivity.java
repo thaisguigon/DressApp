@@ -16,50 +16,56 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.menu);
         
         if (user == null)
         {
+        	// Début de l'application, pas d'utilisateur existant.
+        	// On crée un nouvel utilisateur
         	user = new User (-1, false, null);
+        	// On retourne au formulaire de login.
         	Intent intent = new Intent (MainActivity.this, LoginFormActivity.class);
 			startActivity (intent);
         }
-        
-        // Récupération des données envoyées par les pages précédentes
-        //Bundle extra = getIntent().getExtras();
-        //int userId = -1;
-        
-        /*if (extra == null)
-        {
-        	Toast toast = Toast.makeText(getApplicationContext(), "You were logged out, please wait.",
-					Toast.LENGTH_SHORT);
-			toast.show();
-        	Intent intent = new Intent (MenuActivity.this, MainActivity.class);
+        else if (user == null || !user.isConnected())
+	    {
+	    	// User déconnecté : on le renvoie au formulaire de connexion.
+	    	Intent intent = new Intent (MainActivity.this, LoginFormActivity.class);
 			startActivity (intent);
-        }
-        else
-        {*/
-        	//userId = extra.getInt("userId", 0);
-	        takePicture = (ImageButton) findViewById (R.id.buttonTakePicture);
-	        viewAllClothes = (ImageButton) findViewById (R.id.buttonViewAllClothes);
-	        
-	        takePicture.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {				
-					Intent intent = new Intent (MainActivity.this, CameraPreviewActivity.class);
-					startActivity (intent);
-				}
-			});
-	        
-	        viewAllClothes.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {				
-					Intent intent = new Intent (MainActivity.this, AllClothesDisplayActivity.class);
-					startActivity (intent);
-				}
-			});
-       // }
+	    }
+        
+        setContentView(R.layout.menu);
+
+        takePicture = (ImageButton) findViewById (R.id.buttonTakePicture);
+        viewAllClothes = (ImageButton) findViewById (R.id.buttonViewAllClothes);
+        
+        takePicture.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {				
+				Intent intent = new Intent (MainActivity.this, CameraPreviewActivity.class);
+				startActivity (intent);
+			}
+		});
+        
+        viewAllClothes.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {				
+				Intent intent = new Intent (MainActivity.this, AllClothesDisplayActivity.class);
+				startActivity (intent);
+			}
+		});
     }
+    
+    @Override
+	protected void onResume ()
+	{
+    	super.onResume();
+	    if (user == null || !user.isConnected())
+	    {
+	    	// User déconnecté : on le renvoie au formulaire de connexion.
+	    	Intent intent = new Intent (MainActivity.this, LoginFormActivity.class);
+			startActivity (intent);
+	    }
+	}
 
 
     @Override

@@ -26,10 +26,9 @@ public class LoginFormActivity extends Activity {
 		protected void onPostExecute (Boolean result)
 		{
 			if (result)
-			{
+			{				
 				// Connexion à l'appli si réussi
 				Intent intent = new Intent (LoginFormActivity.this, MainActivity.class);
-				//intent.putExtra("userId", 1);
 				startActivity (intent);
 			}
 			else
@@ -46,6 +45,14 @@ public class LoginFormActivity extends Activity {
     protected void onCreate (Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+        
+        if (MainActivity.user != null && MainActivity.user.isConnected())
+	    {
+	    	// User déjà connecté, on retourne sur le menu.
+	    	Intent intent = new Intent (LoginFormActivity.this, MainActivity.class);
+			startActivity (intent);
+	    }
+        
         setContentView(R.layout.login_form);
         
 		fieldUserName = (EditText) findViewById(R.id.fieldUserName);
@@ -71,10 +78,19 @@ public class LoginFormActivity extends Activity {
 				
 				// Authentification - Validation ou refus des identifiants donnés
 				new AuthenticateUserTask ().execute(username, password);
-				
-				//Intent intent = new Intent (MainActivity.this, MenuActivity.class);
-				//startActivity (intent);
 			}
 		});
+	}
+	
+	@Override
+	protected void onResume ()
+	{
+		super.onResume();
+		if (MainActivity.user != null && MainActivity.user.isConnected())
+	    {
+	    	// User déjà connecté, on retourne sur le menu.
+	    	Intent intent = new Intent (LoginFormActivity.this, MainActivity.class);
+			startActivity (intent);
+	    }
 	}
 }

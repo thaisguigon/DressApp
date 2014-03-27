@@ -76,7 +76,7 @@ public class ClothFormActivity extends Activity {
 			toast.show();
 			
 			// Retour au menu
-			Intent intent = new Intent (ClothFormActivity.this, MainActivity.class);
+			Intent intent = new Intent (ClothFormActivity.this, AllClothesDisplayActivity.class);
 			startActivity (intent);
 		}
 	}
@@ -84,6 +84,14 @@ public class ClothFormActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        if (MainActivity.user == null || !MainActivity.user.isConnected())
+	    {
+	    	// User déconnecté : on le renvoie au formulaire de connexion.
+	    	Intent intent = new Intent (ClothFormActivity.this, LoginFormActivity.class);
+			startActivity (intent);
+	    }
+        
         setContentView(R.layout.cloth_saving_form);
         
         // Récupération des données envoyées par les pages précédentes
@@ -180,8 +188,6 @@ public class ClothFormActivity extends Activity {
 					cloth.setImg(picture);
 				}
 				
-				cloth.setUserId(userId);
-				
 				if (mode == e_Mode.EDIT)
 					url_str += Integer.toString(cloth.getId()) + "/";
 					
@@ -227,6 +233,18 @@ public class ClothFormActivity extends Activity {
 			}
 		});
     }
+    
+    @Override
+	protected void onResume ()
+	{
+    	super.onResume();
+	    if (MainActivity.user == null || !MainActivity.user.isConnected())
+	    {
+	    	// User déconnecté : on le renvoie au formulaire de connexion.
+	    	Intent intent = new Intent (ClothFormActivity.this, LoginFormActivity.class);
+			startActivity (intent);
+	    }
+	}
     
     public void updateForm ()
     {

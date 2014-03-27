@@ -96,6 +96,13 @@ public class AllClothesDisplayActivity extends Activity {
 	{
 		super.onCreate(savedInstanceState);
 		
+		if (MainActivity.user == null || !MainActivity.user.isConnected())
+        {
+        	// User déconnecté : on le renvoie au formulaire de connexion.
+        	Intent intent = new Intent (AllClothesDisplayActivity.this, LoginFormActivity.class);
+			startActivity (intent);
+        }
+		
 		// Définition de la vue correspondante à l'activité
         setContentView(R.layout.all_clothes_display);
 	}
@@ -108,6 +115,12 @@ public class AllClothesDisplayActivity extends Activity {
 	protected void onResume ()
 	{
 		super.onResume();
+	    if (MainActivity.user == null || !MainActivity.user.isConnected())
+        {
+        	// User déconnecté : on le renvoie au formulaire de connexion.
+        	Intent intent = new Intent (AllClothesDisplayActivity.this, LoginFormActivity.class);
+			startActivity (intent);
+        }
 		
 		// On récupère le TableLayout.
     	tableContainer = (TableLayout) findViewById(R.id.tableContainer);
@@ -210,7 +223,8 @@ public class AllClothesDisplayActivity extends Activity {
         		 */
         		row.setOnClickListener(new View.OnClickListener() {
         			@Override
-        			public void onClick(View v) {	        				
+        			public void onClick(View v) {
+        				row.setBackgroundColor(Color.GRAY);
         				// On crée un nouvel intent qui mènera à la page de l'habit.
         				Intent intent = new Intent (AllClothesDisplayActivity.this, ClothFormActivity.class);
         				
