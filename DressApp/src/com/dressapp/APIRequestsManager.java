@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
@@ -18,7 +19,15 @@ import org.json.JSONObject;
 import com.dressapp.ClothFormActivity.e_Mode;
 
 public class APIRequestsManager {
+	
+	private enum e_SendDataMode
+	{
+		POST,
+		PUT
+	}
 
+	/* ----- STANDARD REQUESTS ----- */
+	
 	public static String getURIContent (String url_str)
 	{
 		// Objet URL qui permettra d'accéder au contenu de l'url.
@@ -31,7 +40,7 @@ public class APIRequestsManager {
 		String inputLine,
 		
 		// Chaîne obtenue à la fin de la lecture.
-			result = "";
+		result = "";
 
 		try
 		{
@@ -62,6 +71,89 @@ public class APIRequestsManager {
 		return result;
 	}
 	
+	private static boolean sendData (String url_str, JSONObject dataJSON, e_SendDataMode mode) throws ClientProtocolException, IOException
+	{
+		HttpClient httpclient = new DefaultHttpClient();
+		HttpResponse response;
+		HttpUriRequest req;
+		StringEntity se;
+		boolean result = true;
+		String json_str = "";
+		
+		if (dataJSON != null)
+		{
+			json_str = dataJSON.toString();
+		}
+		
+		se = new StringEntity(json_str);
+		
+		switch (mode)
+		{
+			case PUT :
+			{
+				req = new HttpPut(url_str);
+				((HttpPut) req).setEntity(se);
+				break;
+			}
+			default :
+			{
+				req = new HttpPost(url_str);
+				((HttpPost) req).setEntity(se);
+				break;
+			}
+		}
+		        
+        se.setContentType("application/json");
+		
+        req.setHeader("Accept", "application/json");
+        req.setHeader("Content-type", "application/json");
+        
+		response = httpclient.execute(req);
+		if (response.getStatusLine().getStatusCode() != 201)
+		{
+			result = false;
+			throw new RuntimeException("Failed : HTTP error code : "
+					+ response.getStatusLine().getStatusCode());
+		}
+		
+		httpclient.getConnectionManager().shutdown();
+		
+		return result;
+	}
+		
+	/* ----- USER ----- */
+	
+	public static Boolean authenticateUser (String username, String password)
+	{
+		//JSONObject json = null;
+		String url_str = "http://dressapp.alwaysdata.net/user/login/"+username+"/"+password;
+		
+		try {
+			//json = new JSONObject("{'username':'"+username+"','password':'"+password+"'}");
+			return Boolean.valueOf(getURIContent(url_str));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+
+	public static Boolean createUser (String username, String email, String password)
+	{
+		String url_str = "http://dressapp.alwaysdata.net/user/register/"+username+"/"
+				+email+"/"+password;
+		
+		try {
+			return Boolean.valueOf(getURIContent(url_str));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	/* ----- CLOTHES ----- */
+	
 	public static Void postOrUpdateClothData (String url_str, Cloth cloth, e_Mode mode)
 	{
 		if (cloth == null || mode == e_Mode.VIEW)
@@ -69,41 +161,23 @@ public class APIRequestsManager {
 		
 		JSONObject json = cloth.toJSON();
 		
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpResponse response;
-		HttpUriRequest req;
-		StringEntity se;
-		
-		try {
-			se = new StringEntity(json.toString());
-			
-			if (mode == e_Mode.SAVE)
+		try
+		{
+			switch (mode)
 			{
-		        req = new HttpPost(url_str);
-		        ((HttpPost) req).setEntity(se);
+				case EDIT :
+				{
+					sendData (url_str, json, e_SendDataMode.PUT);
+					break;
+				}
+				default :
+				{
+					sendData (url_str, json, e_SendDataMode.POST);
+					break;
+				}
 			}
-			else
-			{
-				req = new HttpPut(url_str);
-				((HttpPut) req).setEntity(se);
-			}
-			
-			se.setContentType("application/json");
-			
-	        req.setHeader("Accept", "application/json");
-	        req.setHeader("Content-type", "application/json");
-	        
-			response = httpclient.execute(req);
-			if ((mode == e_Mode.SAVE && response.getStatusLine().getStatusCode() != 201) ||
-					(mode == e_Mode.EDIT && response.getStatusLine().getStatusCode() != 204))
-			{
-				throw new RuntimeException("Failed : HTTP error code : "
-						+ response.getStatusLine().getStatusCode());
-			}
-			
-			
-			httpclient.getConnectionManager().shutdown();
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 		

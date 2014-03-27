@@ -27,6 +27,14 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".LoginFormActivity"
+            android:label="@string/app_name">
+        </activity>
+        <activity
+            android:name=".InscriptionFormActivity"
+            android:label="@string/title_inscription">
+        </activity>
+        <activity
             android:name=".CameraPreviewActivity"
             android:label="@string/title_camera_display">
         </activity>

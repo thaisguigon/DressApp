@@ -32,6 +32,7 @@ public class ClothFormActivity extends Activity {
 	private Spinner spinnerType, spinnerOccasion, spinnerColors1, spinnerColors2,
 		spinnerSeasons;
 	private byte[] picture;
+	int userId = -1;
 	
 	private class PostOrUpdateDataTask extends AsyncTask<String, Void, Void> {
 
@@ -88,8 +89,18 @@ public class ClothFormActivity extends Activity {
         // Récupération des données envoyées par les pages précédentes
         Bundle extra = getIntent().getExtras();
         
+        if (extra == null)
+        {
+        	Toast toast = Toast.makeText(getApplicationContext(), "You were logged out, please wait.",
+					Toast.LENGTH_SHORT);
+			toast.show();
+        	Intent intent = new Intent (ClothFormActivity.this, LoginFormActivity.class);
+			startActivity (intent);
+        }
+        
         if (extra != null)
         {
+        	//userId = extra.getInt("userId", 0);
         	if (extra.get("mode") != null && extra.get("mode") instanceof e_Mode)
         		mode = (e_Mode) extra.get("mode");
         	
@@ -168,6 +179,8 @@ public class ClothFormActivity extends Activity {
 				{
 					cloth.setImg(picture);
 				}
+				
+				cloth.setUserId(userId);
 				
 				if (mode == e_Mode.EDIT)
 					url_str += Integer.toString(cloth.getId()) + "/";

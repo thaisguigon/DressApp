@@ -13,10 +13,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -173,9 +170,16 @@ public class AllClothesDisplayActivity extends Activity {
             		
         	        if (bitmapPicture != null)
         	        {
-        	        	int scaledWidth = bitmapPicture.getWidth()/bitmapPicture.getHeight()*120;
-        	        	Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmapPicture, scaledWidth, 120, false);
-        	        	labelImage.setImageBitmap(scaledBitmap);
+        	        	if (bitmapPicture.getWidth() > 0 && bitmapPicture.getHeight() > 0)
+        	        	{
+	        	        	int scaledWidth = bitmapPicture.getWidth()/bitmapPicture.getHeight()*120;
+	        	        	if (scaledWidth > 0)
+	        	        	{
+		        	        	Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmapPicture, scaledWidth, 120, false);
+		        	        	if (scaledBitmap.getHeight() > 0 && scaledBitmap.getWidth() > 0)
+		        	        		labelImage.setImageBitmap(scaledBitmap);
+	        	        	}
+        	        	}
         	        }
             	}
         		

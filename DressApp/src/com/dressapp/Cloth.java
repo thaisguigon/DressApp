@@ -56,6 +56,8 @@ public class Cloth {
 	 */
 	private String category;
 	
+	private int userId = -1;
+	
 	/* ----- CONSTRUCTOR ----- */
 	
 	public Cloth ()
@@ -205,6 +207,14 @@ public class Cloth {
 	public void setCategory (String type)
 	{
 		this.category = type;
+	}
+	
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = 1/*userId*/;
 	}
 	
 	/* ----- METHODS ----- */

@@ -10,6 +10,8 @@
     <string name="title_camera_display">Take a picture</string>
     <string name="title_cloth_form">Cloth</string>
     <string name="title_all_clothes">All clothes</string>
+    <string name="title_login">Login</string>
+    <string name="title_inscription">Inscription</string>
     
     <!-- Taken picture strings -->
     
@@ -75,4 +77,29 @@
     <!-- All clothes display -->
     
     <string name="button_view_all_clothes">View all clothes</string>
-</resources>
+    
+    <!-- Login form -->
+    
+    <string name="login_welcome">Welcome to DressApp !</string>
+    <string name="login_subtitle">Your digital wardrobe</string>
+    <string name="login_introduction">Please login to DressApp.</string>
+    <string name="login_or">or</string>
+    
+    <string name="button_sign_in">Sign in</string>
+    <string name="button_register">Register</string>
+    
+    <!-- Inscription form -->
+    
+    <string name="inscription_welcome">Welcome to DressApp,\nyour digital wardrobe !</string>
+    <string name="inscription_introduction">Create an account and start saving your own clothes !</string>
+    <string name="inscription_information">Please fill the inscription form.</string>
+    <string name="inscription_mail_example">yourmail@example.com</string>
+    
+    <string name="button_create_my_account">Create my account !</string>
+    <string name="button_login_another_account">Login with another account</string>
+    
+    <string name="label_username">Username</string>
+    <string name="label_email">E-mail</string>
+    <string name="label_password">Password</string>
+    
+    </resources>
