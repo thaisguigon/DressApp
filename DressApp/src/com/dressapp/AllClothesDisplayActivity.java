@@ -225,8 +225,7 @@ public class AllClothesDisplayActivity extends Activity {
         		row.setOnClickListener(new View.OnClickListener() {
         			@Override
         			public void onClick(View v) {
-        				row.setBackgroundColor(Color.BLACK);
-            			row.getBackground().setAlpha(102);
+        				row.setBackgroundColor(Color.WHITE);
             			
         				// On crée un nouvel intent qui mènera à la page de l'habit.
         				Intent intent = new Intent (AllClothesDisplayActivity.this, ClothFormActivity.class);
