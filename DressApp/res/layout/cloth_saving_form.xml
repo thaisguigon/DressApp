@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/paper_3" >
+    android:background="@drawable/background" >
 
     <ImageView
         android:id="@+id/imageView_taken_picture"
@@ -19,7 +19,9 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dp" >
+        android:layout_margin="30dp"
+        android:padding="20dp"
+        android:background="#40ffffff" >
 
         <TableRow
             android:id="@+id/tableRow1"
@@ -39,7 +41,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ems="10"
-                android:hint="@string/hint_name" />
+                android:hint="@string/hint_name"
+                android:textColorHint="#840135" />
 
         </TableRow>
 
@@ -153,7 +156,9 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:text="@string/button_cloth_form_submit"
-	            android:visibility="visible" />
+	            android:visibility="visible"
+	            android:textColor="@android:color/white"
+	        	android:background="#70840135" />
             
             <Button
 	            android:id="@+id/button_cloth_form_edit"
@@ -161,7 +166,9 @@
 	            android:layout_width="match_parent"
 	            android:layout_height="wrap_content"
 	            android:text="@string/button_cloth_form_edit"
-	            android:visibility="gone" />
+	            android:visibility="gone"
+	            android:textColor="@android:color/white"
+	        	android:background="#70840135" />
             
         </FrameLayout>
 
@@ -177,7 +184,9 @@
 	            android:layout_height="wrap_content"
 	            android:gravity="center_vertical|center_horizontal|center"
 	            android:text="@string/button_cloth_form_cancel"
-	            android:visibility="visible" />
+	            android:visibility="visible"
+	            android:textColor="@android:color/white"
+	        	android:background="#70000000" />
             
             <Button
 	            android:id="@+id/button_cloth_form_delete"
@@ -186,7 +195,9 @@
 	            android:layout_height="wrap_content"
 	            android:gravity="center_vertical|center_horizontal|center"
 	            android:text="@string/button_cloth_form_delete"
-	            android:visibility="gone" />
+	            android:visibility="gone"
+	            android:textColor="@android:color/white"
+	        	android:background="#70000000" />
             
         </FrameLayout>
 

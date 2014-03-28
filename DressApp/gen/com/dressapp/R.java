@@ -29,26 +29,22 @@ public final class R {
         public static final int activity_vertical_margin=0x7f040001;
     }
     public static final class drawable {
-        public static final int appareil_photo=0x7f020000;
-        public static final int armoire=0x7f020001;
-        public static final int armoire_mdpi=0x7f020002;
-        public static final int armoire_xhdpi=0x7f020003;
-        public static final int armoire_xxhdpi=0x7f020004;
-        public static final int ic_launcher=0x7f020005;
-        public static final int mannequin_rose=0x7f020006;
-        public static final int paper_3=0x7f020007;
-        public static final int welcome=0x7f020008;
+        public static final int background=0x7f020000;
+        public static final int button_appareil_photo=0x7f020001;
+        public static final int button_armoire=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int logo_dressapp=0x7f020004;
     }
     public static final class id {
         public static final int LabelPassword=0x7f090026;
-        public static final int action_settings=0x7f09002c;
+        public static final int action_settings=0x7f09002d;
         public static final int buttonCancel=0x7f090022;
         public static final int buttonRegister=0x7f090029;
         public static final int buttonSignIn=0x7f090027;
         public static final int buttonSubmit=0x7f090021;
         public static final int buttonTakeAPicture=0x7f090002;
-        public static final int buttonTakePicture=0x7f09002a;
-        public static final int buttonViewAllClothes=0x7f09002b;
+        public static final int buttonTakePicture=0x7f09002b;
+        public static final int buttonViewAllClothes=0x7f09002c;
         public static final int button_cloth_form_cancel=0x7f090016;
         public static final int button_cloth_form_delete=0x7f090017;
         public static final int button_cloth_form_edit=0x7f090015;
@@ -57,7 +53,8 @@ public final class R {
         public static final int fieldPassword=0x7f090020;
         public static final int fieldUserName=0x7f09001c;
         public static final int field_name=0x7f090006;
-        public static final int imageView1=0x7f090023;
+        public static final int imageView1=0x7f09002a;
+        public static final int imageView2=0x7f090023;
         public static final int imageView_taken_picture=0x7f090003;
         public static final int inscriptionInformation=0x7f09001a;
         public static final int inscriptionIntroduction=0x7f090019;
@@ -100,45 +97,45 @@ public final class R {
     public static final class string {
         public static final int action_settings=0x7f050001;
         public static final int app_name=0x7f050000;
-        public static final int button_cloth_form_cancel=0x7f050012;
-        public static final int button_cloth_form_delete=0x7f050013;
-        public static final int button_cloth_form_edit=0x7f050011;
-        public static final int button_cloth_form_submit=0x7f050010;
-        public static final int button_create_my_account=0x7f05001f;
-        public static final int button_login_another_account=0x7f050020;
-        public static final int button_register=0x7f05001a;
-        public static final int button_sign_in=0x7f050019;
+        public static final int button_cloth_form_cancel=0x7f050013;
+        public static final int button_cloth_form_delete=0x7f050014;
+        public static final int button_cloth_form_edit=0x7f050012;
+        public static final int button_cloth_form_submit=0x7f050011;
+        public static final int button_create_my_account=0x7f050020;
+        public static final int button_login_another_account=0x7f050021;
+        public static final int button_register=0x7f05001b;
+        public static final int button_sign_in=0x7f05001a;
         /**  Taken picture strings 
          */
-        public static final int button_take_a_picture=0x7f050008;
+        public static final int button_take_a_picture=0x7f050009;
         /**  All clothes display 
          */
-        public static final int button_view_all_clothes=0x7f050014;
-        public static final int contentDescription_taken_picture=0x7f050009;
+        public static final int button_view_all_clothes=0x7f050015;
+        public static final int contentDescription_taken_picture=0x7f05000a;
         public static final int hello_world=0x7f050002;
-        public static final int hint_name=0x7f05000b;
-        public static final int inscription_information=0x7f05001d;
-        public static final int inscription_introduction=0x7f05001c;
-        public static final int inscription_mail_example=0x7f05001e;
+        public static final int hint_name=0x7f05000c;
+        public static final int inscription_information=0x7f05001e;
+        public static final int inscription_introduction=0x7f05001d;
+        public static final int inscription_mail_example=0x7f05001f;
         /**  Inscription form 
          */
-        public static final int inscription_welcome=0x7f05001b;
-        public static final int label_colors=0x7f05000e;
-        public static final int label_email=0x7f050022;
+        public static final int inscription_welcome=0x7f05001c;
+        public static final int label_colors=0x7f05000f;
+        public static final int label_email=0x7f050023;
         /**  Cloth Form labels 
          */
-        public static final int label_name=0x7f05000a;
-        public static final int label_occasion=0x7f05000d;
-        public static final int label_password=0x7f050023;
-        public static final int label_season=0x7f05000f;
-        public static final int label_type=0x7f05000c;
-        public static final int label_username=0x7f050021;
-        public static final int login_introduction=0x7f050017;
-        public static final int login_or=0x7f050018;
-        public static final int login_subtitle=0x7f050016;
+        public static final int label_name=0x7f05000b;
+        public static final int label_occasion=0x7f05000e;
+        public static final int label_password=0x7f050024;
+        public static final int label_season=0x7f050010;
+        public static final int label_type=0x7f05000d;
+        public static final int label_username=0x7f050022;
+        public static final int login_introduction=0x7f050018;
+        public static final int login_or=0x7f050019;
+        public static final int login_subtitle=0x7f050017;
         /**  Login form 
          */
-        public static final int login_welcome=0x7f050015;
+        public static final int login_welcome=0x7f050016;
         public static final int title_all_clothes=0x7f050005;
         /**  Display Titles 
          */
@@ -146,6 +143,7 @@ public final class R {
         public static final int title_cloth_form=0x7f050004;
         public static final int title_inscription=0x7f050007;
         public static final int title_login=0x7f050006;
+        public static final int title_menu=0x7f050008;
     }
     public static final class style {
         /** 

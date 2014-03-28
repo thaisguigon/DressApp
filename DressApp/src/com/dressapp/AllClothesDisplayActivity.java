@@ -172,7 +172,8 @@ public class AllClothesDisplayActivity extends Activity {
         		// Les lignes impaires ont une couleur différente.
         		if (i%2 != 0)
         		{
-        			row.setBackgroundColor(Color.LTGRAY);
+        			row.setBackgroundColor(Color.WHITE);
+        			row.getBackground().setAlpha(102);
         		}
         		
         		if (currentCloth.getImg() != null)
@@ -224,7 +225,9 @@ public class AllClothesDisplayActivity extends Activity {
         		row.setOnClickListener(new View.OnClickListener() {
         			@Override
         			public void onClick(View v) {
-        				row.setBackgroundColor(Color.GRAY);
+        				row.setBackgroundColor(Color.BLACK);
+            			row.getBackground().setAlpha(102);
+            			
         				// On crée un nouvel intent qui mènera à la page de l'habit.
         				Intent intent = new Intent (AllClothesDisplayActivity.this, ClothFormActivity.class);
         				
